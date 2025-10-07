@@ -4,48 +4,627 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صفحه شخصی رهام خادمی | توسعه‌دهنده سیستم و امنیت (Pentesting)</title> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
-        /* CSS اینجا قرار می‌گیرد */
+        /* 🔑 متغیرهای CSS (پالت سایبرپانک) */
+        :root {
+            --primary-color: #00FFFF; /* نئون فیروزه‌ای */
+            --secondary-color: #FF00FF; /* نئون صورتی/ماژانتا */
+            --accent-color: #00FF00; /* نئون سبز */
+            --bg-dark: #0F172A; /* پس‌زمینه اصلی (Slate 900) */
+            --bg-medium: #1E293B; /* پس‌زمینه کارت‌ها */
+            --text-light: #E2E8F0; /* متن روشن */
+            --text-subtle: #94A3B8; /* متن ثانویه */
+            --border-color: #334155; /* مرزها */
+            --shadow-neon: 0 0 10px var(--primary-color), 0 0 20px rgba(0, 255, 255, 0.5); /* جلوه نئون */
+            --shadow-glitch: 0 0 5px var(--secondary-color); /* جلوه گلیچ */
+            --font-family-fa: 'Vazirmatn', sans-serif;
+            --font-family-en: 'Space Mono', monospace; /* فونت فنی */
+            --container-padding: 25px;
+        }
+
+        /* تنظیمات عمومی و پایه */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-family-fa);
+            line-height: 1.8;
+            color: var(--text-light);
+            margin: 0;
+            padding-top: 90px;
+            background: var(--bg-dark); 
+            direction: rtl;
+            overflow-x: hidden;
+            /* 💡 نویز پس‌زمینه برای جلوه سایبرپانک */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        .container { max-width: 1300px; margin: auto; padding: 0 var(--container-padding); }
+        h1, h2, h3, h4 { font-family: var(--font-family-en); color: var(--text-light); font-weight: 700; line-height: 1.3; text-shadow: var(--shadow-glitch); }
+        p { color: var(--text-subtle); }
+        a { color: var(--primary-color); text-decoration: none; transition: color 0.3s; }
+        a:hover { color: var(--secondary-color); }
+
+        /* 🔑 HEADER نئونی و ثابت */
+        header {
+            background-color: var(--bg-dark);
+            border-bottom: 2px solid var(--border-color);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .logo { font-size: 2rem; font-weight: 700; color: var(--primary-color) !important; text-shadow: var(--shadow-neon); }
+        
+        nav a {
+            color: var(--text-light);
+            font-family: var(--font-family-en);
+            font-weight: 400;
+            margin-right: 30px;
+            position: relative;
+        }
+        nav a::after { /* خط نئونی زیرین */
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            box-shadow: 0 0 5px var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        nav a:hover, nav a.active {
+            color: var(--primary-color);
+        }
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* 🔑 Scroll Progress Indicator (نوار نئونی) */
+        #progressBar { height: 4px; background-color: var(--secondary-color); box-shadow: 0 0 8px var(--secondary-color); z-index: 1001; }
+
+        /* 🔑 Hero Section (بخش معرفی) - نئون و فنی */
+        #hero-resume {
+            padding: 100px 0 80px;
+            text-align: center;
+            background: linear-gradient(to top, var(--bg-medium) 0%, transparent 100%);
+            min-height: 80vh;
+        }
+        #hero-resume h1 { 
+            font-size: 5rem; 
+            color: var(--primary-color); 
+            font-weight: 900; 
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px var(--primary-color), 0 0 25px rgba(0, 255, 255, 0.4); 
+            animation: fadeIn 1s ease-out;
+        }
+        .typing-effect {
+            font-size: 2rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 50px;
+            min-height: 4rem; 
+            display: block;
+            font-family: var(--font-family-en);
+            text-shadow: 0 0 8px var(--accent-color);
+        }
+        .cursor { background-color: var(--secondary-color); height: 2em; animation: blink 0.5s infinite; }
+        
+        /* 🔑 کارت‌های "شیشه‌ای" (Glassmorphism) */
+        section { padding: 100px 0; }
+        .section-title { font-size: 3.5rem; margin-bottom: 80px; color: var(--secondary-color); text-shadow: 0 0 10px var(--secondary-color), 0 0 15px rgba(255, 0, 255, 0.3); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+        
+        .card {
+            background: rgba(30, 41, 59, 0.4); /* شفافیت برای جلوه شیشه‌ای */
+            padding: 35px;
+            border-radius: 25px;
+            border: 1px solid rgba(51, 65, 85, 0.6); 
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px); /* 💡 جلوه شیشه‌ای */
+            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* انیمیشن نرم‌تر */
+            transform: translateY(0);
+        }
+        .card:hover { 
+            transform: translateY(-15px) scale(1.03); 
+            box-shadow: 0 0 15px var(--primary-color), 0 10px 30px rgba(0, 0, 0, 0.5); /* سایه نئونی در هاور */
+            border: 1px solid var(--primary-color);
+        }
+        .card h4 { font-size: 1.9rem; margin-bottom: 20px; color: var(--accent-color); text-shadow: var(--shadow-neon); }
+
+        /* 🔑 مهارت‌های عمیق (Progress Bars نئونی) */
+        #deep-skills { background-color: var(--bg-medium); border-radius: 30px; }
+        .skill-item { margin-bottom: 30px; }
+        .skill-label { font-family: var(--font-family-en); color: var(--primary-color); font-weight: 700; text-shadow: var(--shadow-neon); }
+        .progress-bar-container { background-color: var(--border-color); height: 15px; border-radius: 8px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); }
+        .progress-bar { 
+            background: linear-gradient(90deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            box-shadow: 0 0 8px var(--primary-color); /* نئون بار */
+            border-radius: 8px;
+            transition: width 1.8s ease-out; 
+        }
+        
+        /* 🔑 بخش پروژه‌ها (فیلترهای نئونی) */
+        .filter-buttons { margin-bottom: 60px; }
+        .filter-btn {
+            background: var(--bg-medium);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            box-shadow: var(--shadow-neon);
+            padding: 12px 30px;
+            margin: 0 12px;
+            border-radius: 50px;
+            font-family: var(--font-family-en);
+            font-weight: 700;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 20px var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        /* 🔑 بخش تماس (طراحی شیشه ای و نئونی) */
+        .contact-card-info {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        .contact-card-info h3 { color: var(--primary-color); text-shadow: var(--shadow-neon); }
+        .phone-link {
+            background-color: var(--secondary-color);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--secondary-color);
+            font-family: var(--font-family-en);
+            transition: all 0.4s ease;
+        }
+        .phone-link:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        #contactForm {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 0 15px var(--secondary-color);
+        }
+
+        .form-control {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-light);
+            font-family: var(--font-family-en);
+            padding: 18px; /* افزایش پدینگ */
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+            background: var(--bg-dark);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            font-weight: 700;
+            text-shadow: none;
+            box-shadow: 0 0 15px var(--primary-color);
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--secondary-color);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px var(--secondary-color);
+            transform: scale(1.01);
+        }
+        
+        .status-success { background-color: rgba(0, 255, 0, 0.2); color: var(--accent-color); border-color: var(--accent-color); box-shadow: 0 0 8px var(--accent-color); }
+        .status-error { background-color: rgba(255, 0, 255, 0.2); color: var(--secondary-color); border-color: var(--secondary-color); box-shadow: 0 0 8px var(--secondary-color); }
+        
+        /* 🔑 ریسپانسیو (تشخیص هوشمند برای موبایل و دسکتاپ) */
+        @media (max-width: 991px) {
+            #hero-resume h1 { font-size: 3rem; }
+            .typing-effect { font-size: 1.5rem; }
+            .section-title { font-size: 2.5rem; }
+            nav a { margin: 5px 10px; font-size: 0.9rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .card { padding: 25px; border-radius: 18px; }
+            .phone-link { font-size: 1.1rem; padding: 10px 20px; }
+            #contactForm { padding: 30px; }
+        }
+        
+        @media (max-width: 576px) {
+            #hero-resume h1 { font-size: 2.2rem; }
+            .typing-effect { font-size: 1.2rem; }
+            .section-title { font-size: 1.8rem; }
+            .filter-btn { padding: 8px 15px; margin: 5px; font-size: 0.8rem; }
+            nav a { margin: 2px 5px; }
+            .card h4 { font-size: 1.5rem; }
+            .phone-link { font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
     
-    <section id="contact-info-section" class="container" style="padding-top: 50px; padding-bottom: 20px;">
-        <div class="contact-card-info">
-            <h3>آماده برای گفتگو در مورد پروژه‌های سنگین</h3>
-            <p>می‌توانید برای شروع یک پروژه جدید یا همکاری در زمینه تست نفوذ قانونی، مستقیماً تماس بگیرید:</p>
-            <a href="tel:09164863702" class="phone-link">
-                <i class="fas fa-phone-alt"></i> 
-                شماره تماس: <strong>۰۹۱۶۴۸۶۳۷۰۲</strong>
-            </a>
-        </div>
-    </section>
+    <div id="progressBar"></div>
 
-    <section id="contact-form-section">
-        <div class="container">
-            <h2 class="section-title" style="color: var(--text-dark);">یا ارسال پیام الکترونیکی</h2>
-            
-            <form id="contactForm">
-                <div class="form-group"><label for="name">نام کامل:</label><input type="text" id="name" name="name" class="form-control" placeholder="نام و نام خانوادگی شما" required></div>
-                <div class="form-group"><label for="email">آدرس ایمیل:</label><input type="email" id="email" name="email" class="form-control" placeholder="example@domain.com" required></div>
-                <div class="form-group"><label for="subject">موضوع (توسعه، امنیت یا مشاوره):</label><input type="text" id="subject" name="subject" class="form-control" placeholder="موضوع پیام شما" required></div>
-                <div class="form-group"><label for="message">متن پیام:</label><textarea id="message" name="message" class="form-control" rows="7" placeholder="پیام خود را اینجا بنویسید..." required></textarea></div>
-                
-                <p id="formStatus" class="message-status"></p>
-                <button type="submit" id="submitButton" class="btn-primary">ارسال درخواست پیشرفته <i class="fas fa-paper-plane" style="margin-right: 8px;"></i></button>
-            </form>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="#hero-resume" class="logo">ROHAM KHADEMI</a>
+            <nav>
+                <a href="#hero-resume" class="nav-link">HOME</a>
+                <a href="#specialties" class="nav-link">TECH-STACK</a>
+                <a href="#deep-skills" class="nav-link">SKILLS</a>
+                <a href="#projects" class="nav-link">PROJECTS</a>
+                <a href="#goals" class="nav-link">GOALS</a>
+                <a href="#contact-form-section" class="nav-link">CONTACT</a>
+            </nav>
         </div>
-    </section>
-    
+    </header>
+
+    <main>
+        <section id="hero-resume" class="container">
+            <div>
+                <hgroup>
+                    <h1>رهام خادمی | SYSTEM & SECURITY DEV</h1>
+                    <span id="typingText" class="typing-effect"></span>
+                </hgroup>
+                
+                <div class="card-grid" style="margin-top: 50px;">
+                    <article class="card">
+                        <h4><i class="fas fa-terminal" style="margin-left: 10px; color: var(--primary-color);"></i> [DEV_FOCUS]</h4>
+                        <p>توسعه‌دهنده متعهد، متخصص در **لینوکس** و تولید **کدهای طولانی و سنگین** برای اتوماسیون سطح پایین و ابزارهای **تست نفوذ**. یادگیرنده فعال در پلتفرم‌های **Google Cloud و Microsoft**.</p>
+                    </article>
+                    
+                    <article class="card">
+                        <h4><i class="fas fa-shield-alt" style="margin-left: 10px; color: var(--secondary-color);"></i> [ETHICS_STATEMENT]</h4>
+                        <p>تمام فعالیت‌های من در حوزه امنیت و **Pentesting** بر اساس قوانین و اصول اخلاقی صورت می‌گیرد. تعهد کامل به استفاده **قانونی** و مسئولانه از دانش فنی.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+        
+        <section id="specialties" class="container">
+            <h2 class="section-title">فناوری‌های کلیدی (CORE TECHNOLOGIES)</h2>
+            
+            <div class="card-grid">
+                <div class="card specialty-card" data-order="1">
+                    <h4><i class="fab fa-python" style="margin-left: 10px; color: #4B8BBE;"></i> PYTHON (Heavy Architecture)</h4>
+                    <p>اتوماسیون پیچیده، توسعه ابزارهای **LPT/Pentesting**، و بک‌اند‌های داده‌محور.</p>
+                </div>
+                
+                <div class="card specialty-card" data-order="2">
+                    <h4><i class="fab fa-linux" style="margin-left: 10px; color: #EBCB8B;"></i> BASH/LINUX (System Control)</h4>
+                    <p>اسکریپت‌نویسی پیشرفته **Bash**، بهینه‌سازی سیستم‌های عامل لینوکس و کار با محیط‌های Docker/VM.</p>
+                </div>
+
+                <div class="card specialty-card" data-order="3">
+                    <h4><i class="fab fa-android" style="margin-left: 10px; color: #7F52FF;"></i> KOTLIN & WEB</h4>
+                    <p>توسعه اپلیکیشن‌های موبایل و سمت سرور با **Kotlin** و پیاده‌سازی رابط‌های کاربری (HTML/CSS) استاندارد.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="deep-skills" class="container">
+            <h2 class="section-title">سطح تسلط فنی (PROFICIENCY LEVELS)</h2>
+            
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="skill-item">
+                    <div class="skill-label"><span>PYTHON (Security & Automation)</span> <span class="skill-percentage" data-level="90">۹۰%</span></div>
+                    <div class="progress-bar-container"><div class="progress-bar" id="python-progress"></div></div>
+                </div>
+                
+                <div class="skill-item">
+                    <div class="skill-label"><span>BASH/SHELL SCRIPTING</span> <span class="skill-percentage" data-level="85">۸۵%</span></div>
+                    <div class="progress-bar-container"><div class="progress-bar" id="bash-progress"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-label"><span>KOTLIN (Backend/Mobile)</span> <span class="skill-percentage" data-level="70">۷۰%</span></div>
+                    <div class="progress-bar-container"><div class="progress-bar" id="kotlin-progress"></div></div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-label"><span>ETHICAL PENTESTING & RE</span> <span class="skill-percentage" data-level="80">۸۰%</span></div>
+                    <div class="progress-bar-container"><div class="progress-bar" id="pentest-progress"></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="container">
+            <h2 class="section-title">پروژه‌های کلیدی (FLAGGED PROJECTS)</h2>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">ALL</button>
+                <button class="filter-btn" data-filter="python">PYTHON</button>
+                <button class="filter-btn" data-filter="bash">BASH/LINUX</button>
+                <button class="filter-btn" data-filter="security">SECURITY</button>
+            </div>
+            
+            <div class="card-grid">
+                <article class="card project-card show" data-category="python security">
+                    <h5><i class="fas fa-bug" style="margin-left: 8px;"></i> Advanced Scanner Tool</h5>
+                    <p>اسکنر شبکه Multi-threaded با گزارش‌دهی JSON. پیاده‌سازی با سوکت‌های سطح پایین.</p>
+                </article>
+
+                <article class="card project-card show" data-category="bash linux">
+                    <h5><i class="fas fa-server" style="margin-left: 8px;"></i> Linux Server Deploy Automation</h5>
+                    <p>اسکریپت‌های Bash برای نصب و پیکربندی خودکار سرورهای وب (Nginx/Apache) با تمرکز بر امنیت.</p>
+                </article>
+
+                <article class="card project-card show" data-category="kotlin web">
+                    <h5><i class="fas fa-mobile-alt" style="margin-left: 8px;"></i> Fintech Micro-service (Kotlin)</h5>
+                    <p>نمونه اولیه موتور تراکنش‌های مالی سریع و امن با استفاده از فریم‌ورک Ktor در Kotlin.</p>
+                </article>
+
+                <article class="card project-card show" data-category="python web">
+                    <h5><i class="fas fa-robot" style="margin-left: 8px;"></i> Asynchronous Web Scraper</h5>
+                    <p>ربات وب اسکرپینگ موازی با Python Asynchio برای جمع‌آوری داده با سرعت بالا.</p>
+                </article>
+
+                <article class="card project-card show" data-category="security bash">
+                    <h5><i class="fas fa-file-contract" style="margin-left: 8px;"></i> Forensic System Reporter</h5>
+                    <p>ابزار گزارش‌دهی قانونی مبتنی بر Bash برای استخراج لاگ‌ها و اطلاعات سیستم برای ممیزی‌های امنیتی.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="goals" class="container">
+            <h2 class="section-title">اهداف آینده (FUTURE OBJECTIVES)</h2>
+            
+            <div class="card-grid">
+                <article class="card">
+                    <h4><i class="fas fa-university" style="margin-left: 10px; color: var(--primary-color);"></i> ACADEMIC & AI</h4>
+                    <ul class="goals-list" style="list-style-type: none; padding-right: 0;">
+                        <li>کسب پذیرش در برنامه تخصصی **AI/ML** در مقطع دبیرستان.</li>
+                        <li>تسلط پیشرفته بر **Machine Learning** و سیستم‌های روباتیک.</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <h4><i class="fas fa-briefcase" style="margin-left: 10px; color: var(--secondary-color);"></i> PROFESSIONAL & OPEN-SOURCE</h4>
+                    <ul class="goals-list" style="list-style-type: none; padding-right: 0;">
+                        <li>توسعه پروژه‌های شخصی و مشارکت فعال در پروژه‌های **متن‌باز (Open-source)**.</li>
+                        <li>گسترش مهارت‌های فریلنسینگ در حوزه‌های **Fintech** و **Cybersecurity**.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+        
+        <section id="contact-info-section" class="container" style="padding-top: 50px; padding-bottom: 20px;">
+            <div class="contact-card-info">
+                <h3>[INITIATE CONTACT] - شروع یک پروژه سنگین</h3>
+                <p>برای شروع یک همکاری یا مشاوره در حوزه تست نفوذ قانونی، مستقیماً تماس بگیرید. منتظر پروژه‌های چالش‌برانگیز هستم:</p>
+                <a href="tel:09164863702" class="phone-link">
+                    <i class="fas fa-phone-alt"></i> 
+                    CALL: <strong>۰۹۱۶۴۸۶۳۷۰۲</strong>
+                </a>
+            </div>
+        </section>
+
+        <section id="contact-form-section">
+            <div class="container">
+                <h2 class="section-title" style="color: var(--text-light); text-shadow: var(--shadow-glitch);">یا ارسال DATA-PACKET (پیام)</h2>
+                
+                <form id="contactForm">
+                    <div class="form-group"><label for="name">NAME:</label><input type="text" id="name" name="name" class="form-control" placeholder="YOUR NAME" required></div>
+                    <div class="form-group"><label for="email">EMAIL ADDRESS:</label><input type="email" id="email" name="email" class="form-control" placeholder="USER@DOMAIN.COM" required></div>
+                    <div class="form-group"><label for="subject">SUBJECT (PROJECT/SECURITY/CONSULT):</label><input type="text" id="subject" name="subject" class="form-control" placeholder="DATA SUBJECT" required></div>
+                    <div class="form-group"><label for="message">MESSAGE PAYLOAD:</label><textarea id="message" name="message" class="form-control" rows="7" placeholder="YOUR MESSAGE..." required></textarea></div>
+                    
+                    <p id="formStatus" class="message-status"></p>
+                    <button type="submit" id="submitButton" class="btn-primary">SEND REQUEST <i class="fas fa-paper-plane" style="margin-right: 8px;"></i></button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <button id="scrollTopBtn" title="BACK TO TOP"><i class="fas fa-arrow-up"></i></button>
+
     <footer>
         <div class="container">
-            <p style="font-size: 0.95rem; color: #a0aec0; text-align: center;">
-                توسعه یافته توسط <span style="color: white; font-weight: 500;">رهام خادمی</span> &copy; ۲۰۲۵. | 
-                تماس مستقیم: <a href="tel:09164863702" style="color: var(--primary-color); text-decoration: none;">۰۹۱۶۴۸۶۳۷۰۲</a> 
-                <br>با افتخار Powered by **Linux** 🐧 و کدهای بهینه. تمامی حقوق مربوط به استفاده قانونی از کدها محفوظ است.
+            <p style="font-size: 0.95rem; color: var(--text-subtle); text-align: center;">
+                [DEVELOPED_BY] <span style="color: var(--primary-color); font-weight: 700;">ROHAM KHADEMI</span> &copy; 2025. | 
+                [SECURE_COMMS] <a href="tel:09164863702" style="color: var(--secondary-color); text-shadow: var(--shadow-glitch);">۰۹۱۶۴۸۶۳۷۰۲</a> 
+                <br>POWERED BY **LINUX** 🐧 AND ADVANCED CODE. ALL RIGHTS RESERVED FOR LEGAL USE ONLY.
             </p>
         </div>
     </footer>
 
-    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // =======================================================
+            // ۱. انیمیشن تایپینگ در بخش Hero (تعاملی)
+            // =======================================================
+            const typingElement = document.getElementById('typingText');
+            const phrases = [
+                "Python, Kotlin, Bash", 
+                "Linux System & Automation Specialist", 
+                "Ethical Pentesting & Security",
+                "با کدهای طولانی و سنگین"
+            ];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentPhrase = phrases[phraseIndex];
+                let displayedText = currentPhrase.substring(0, charIndex);
+
+                typingElement.textContent = displayedText;
+                typingElement.appendChild(document.createElement('span')).className = 'cursor';
+
+                if (!isDeleting && charIndex < currentPhrase.length) {
+                    charIndex++;
+                    setTimeout(type, 80); // سرعت تایپ سریع‌تر
+                } else if (isDeleting && charIndex > 0) {
+                    charIndex--;
+                    setTimeout(type, 40); // سرعت پاک کردن سریع‌تر
+                } else if (charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(type, 1800);
+                } else if (charIndex === 0 && isDeleting) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(type, 600);
+                }
+            }
+            type();
+
+            // =======================================================
+            // ۲. فیلتر کردن پروژه‌ها (تعاملی و سنگین)
+            // =======================================================
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    projectCards.forEach(card => {
+                        const categories = card.getAttribute('data-category').split(' ');
+                        
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        
+                        setTimeout(() => {
+                            if (filter === 'all' || categories.includes(filter)) {
+                                card.classList.add('show');
+                                setTimeout(() => {
+                                    card.style.opacity = '1';
+                                    card.style.transform = 'translateY(0)';
+                                }, 100); 
+                            } else {
+                                card.classList.remove('show');
+                            }
+                        }, 400); 
+                    });
+                });
+            });
+
+            // =======================================================
+            // ۳. ردیابی پیمایش و نوار پیشرفت مهارت‌ها (تعاملی)
+            // =======================================================
+            const progressBar = document.getElementById("progressBar");
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            const navLinks = document.querySelectorAll('nav a.nav-link');
+            const sections = document.querySelectorAll('main section');
+            const skillProgressBars = {
+                'python-progress': 90,
+                'bash-progress': 85,
+                'kotlin-progress': 70,
+                'pentest-progress': 80
+            };
+            let skillsAnimated = false;
+
+            function updateProgressAndActiveLink() {
+                // نوار پیشرفت
+                const totalHeight = document.body.scrollHeight - window.innerHeight;
+                const progress = (window.scrollY / totalHeight) * 100;
+                progressBar.style.width = progress + "%";
+                
+                // دکمه بازگشت به بالا
+                if (window.scrollY > 300) { scrollTopBtn.classList.add('show'); } 
+                else { scrollTopBtn.classList.remove('show'); }
+
+                // لینک فعال
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100; 
+                    if (scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // انیمیشن Progress Bars
+                if (current === 'deep-skills' && !skillsAnimated) {
+                    for (const id in skillProgressBars) {
+                        const level = skillProgressBars[id];
+                        document.getElementById(id).style.width = level + '%';
+                    }
+                    skillsAnimated = true;
+                }
+            }
+
+            window.addEventListener('scroll', updateProgressAndActiveLink);
+            updateProgressAndActiveLink();
+
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // =======================================================
+            // ۴. مدیریت فرم تماس
+            // =======================================================
+            const form = document.getElementById('contactForm');
+            const formStatus = document.getElementById('formStatus');
+            const submitButton = document.getElementById('submitButton');
+            // ⚠️ آدرس API اینجا قرار می‌گیرد
+            const FORM_ACTION_URL = 'YOUR_EXTERNAL_FORM_API_ENDPOINT_HERE'; 
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                formStatus.textContent = 'INITIATING DATA TRANSFER...';
+                formStatus.className = 'message-status status-loading';
+                formStatus.style.display = 'block';
+                submitButton.disabled = true;
+
+                const formData = new FormData(form);
+                const formObject = Object.fromEntries(formData); 
+                
+                // شبیه‌سازی پاسخ سرور
+                new Promise(resolve => setTimeout(() => {
+                    const success = Math.random() > 0.1; 
+                    if (success) {
+                        resolve();
+                    } else {
+                        throw new Error('NETWORK ERROR. FAILED TO SEND DATA-PACKET.'); 
+                    }
+                }, 1500)) 
+                .then(() => {
+                    formStatus.textContent = 'TRANSFER SUCCESSFUL. ACKNOWLEDGED. ✅';
+                    formStatus.className = 'message-status status-success';
+                    form.reset();
+                })
+                .catch(error => {
+                    formStatus.textContent = `[ERROR]: ${error.message || 'TRANSFER FAILED. CHECK API.'}`;
+                    formStatus.className = 'message-status status-error';
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                        formStatus.className = 'message-status'; 
+                    }, 6000); 
+                });
+            });
+        });
+    </script>
+</body>
 </html>
