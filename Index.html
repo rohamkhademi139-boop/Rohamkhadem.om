@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rohamkhademi139 - توسعه‌دهنده پیشرفته پایتون، کاتلین و Bash | رزومه تخصصی</title>
+    <meta name="description" content="رزومه کامل rohamkhademi139: متخصص توسعه سیستم، اتوماسیون با پایتون و Bash در لینوکس، و توسعه اپلیکیشن با کاتلین. آماده برای پروژه‌های تست نفوذ و فین‌تک.">
+    <meta name="keywords" content="Python, Bash, Kotlin, Linux, توسعه‌دهنده, تست نفوذ, اتوماسیون, فین‌تک, rohamkhademi139">
+    <meta name="author" content="rohamkhademi139">
+
+    <style>
+        /* 🔑 متغیرهای CSS برای وراثت و مدیریت آسان استایل */
+        :root {
+            --primary-color: #0F766E; /* سبز فیروزه‌ای عمیق */
+            --secondary-color: #1F2937; 
+            --accent-color: #FACC15; /* زرد طلایی برای تأکید */
+            --bg-light: #F3F4F6;
+            --text-dark: #374151;
+            --font-family: 'Tahoma', 'Vazir', sans-serif;
+            --container-padding: 20px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--text-dark);
+            margin: 0;
+            padding-top: 70px;
+            background-color: white;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 var(--container-padding);
+        }
+
+        /* 🔑 HEADER ثابت و حرفه‌ای */
+        header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: bold; }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-color); }
+
+        /* 🔑 استایل بخش‌ها و عناوین */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* 🔑 کارت‌های اطلاعاتی (برای تخصص‌ها و اهداف) */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+            border-top: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h4 {
+            color: var(--secondary-color);
+            border-bottom: 1px solid var(--bg-light);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        .skill-list li, .goals-list li {
+            list-style: none;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-list li::before {
+            content: "🛠️";
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+
+        .goals-list li::before {
+            content: "🎯";
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* 🔑 فرم تماس */
+        #contact-form-section {
+            background-color: var(--bg-light);
+        }
+
+        #contactForm {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.15);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #047857;
+        }
+
+        /* 🔑 ریسپانسیو (Responsive) */
+        @media (max-width: 768px) {
+            body { padding-top: 60px; }
+            .card-grid { grid-template-columns: 1fr; }
+            header .container { flex-direction: column; }
+            nav { margin-top: 10px; }
+            nav a { margin-right: 15px; font-size: 0.9rem; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div class="container">
+            <a href="#hero-resume" class="logo" style="color: white; text-decoration: none;">rohamkhademi139</a>
+            <nav>
+                <a href="#hero-resume">معرفی</a>
+                <a href="#specialties">تخصص‌ها</a>
+                <a href="#goals">اهداف</a>
+                <a href="#contact-form-section">تماس</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero-resume" class="container">
+            <hgroup style="text-align: center; margin-bottom: 50px;">
+                <h1>توسعه‌دهنده سیستم‌های هوشمند و امنیت (Pentesting)</h1>
+                <p style="color: var(--primary-color); font-size: 1.3rem; font-weight: 500;">**Python**, **Kotlin**, **Bash** | متخصص در محیط **لینوکس** و پلتفرم‌های ابری</p>
+            </hgroup>
+            
+            <div class="card-grid">
+                <article class="card">
+                    <h4>📝 بیوگرافی و دیدگاه (فارسی)</h4>
+                    <p>من یک **یادگیرنده فعال** هستم که به حل مسائل دنیای واقعی با **کدهای طولانی و سنگین** علاقه دارم. رویکرد من ترکیبی از تمرکز عمیق (Deep Focus) و انرژی خلاقانه است، به ویژه در پروژه‌های اتوماسیون لینوکس و توسعه ابزارهای **تست نفوذ**.</p>
+                    <p>**علاقه‌مندی‌های کلیدی:** سیستم‌های لینوکس، پلتفرم‌های Google Cloud و فناوری‌های مایکروسافت.</p>
+                </article>
+                
+                <article class="card" dir="ltr" style="text-align: left; border-top-color: var(--accent-color);">
+                    <h4>🧑‍💻 Profile & Philosophy (English)</h4>
+                    <p class="english-bio">
+                        An **occasionally talkative learner** who thrives on exploring new technologies and solving real-world problems. My personality blends quiet focus with bursts of creative energy when building innovative solutions.
+                    </p>
+                    <p>
+                        My favorite player is **Joshua Kimmich** (FC Bayern Munich), whose versatility and strategic intelligence inspire my technical approach to problem-solving.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section id="specialties" class="container" style="background-color: var(--bg-light); border-radius: 12px;">
+            <h2 class="section-title">تخصص‌های برنامه‌نویسی و سیستم</h2>
+            
+            <div class="card-grid">
+                
+                <div class="card">
+                    <h4>🐍 Python (کدهای سنگین و پیشرفته)</h4>
+                    <ul class="skill-list">
+                        <li>توسعه ابزارهای **تست نفوذ** (Penetration Testing Tools)</li>
+                        <li>اسکریپت‌نویسی برای اتوماسیون فرآیندهای پیچیده</li>
+                        <li>بک‌اند سبک (مانند فریم‌ورک‌های Micro-framework)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>🐧 Linux & Bash (قدرت سیستم عامل)</h4>
+                    <ul class="skill-list">
+                        <li>اسکریپت‌های Bash برای مدیریت و بهینه‌سازی سیستم</li>
+                        <li>پیکربندی پیشرفته و محیط‌های مجازی (Containers)</li>
+                        <li>استفاده از ابزارهای CLI در سطح توسعه‌دهنده.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>⚛️ Kotlin & HTML (فرانت‌اند و کراس‌پلتفرم)</h4>
+                    <ul class="skill-list">
+                        <li>توسعه با Kotlin (برای اپلیکیشن‌ها یا بک‌اند مدرن)</li>
+                        <li>طراحی رابط کاربری با HTML/CSS پیشرفته</li>
+                        <li>استفاده از اصول **وراثت CSS** برای کدهای تمیزتر.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="goals" class="container">
+            <h2 class="section-title">🎯 اهداف استراتژیک و توسعه حرفه‌ای</h2>
+            
+            <div style="max-width: 900px; margin: 0 auto;">
+                <ul class="goals-list">
+                    <li>کسب پذیرش در برنامه دبیرستانی تخصصی در **علوم کامپیوتر یا هوش مصنوعی (AI)**.</li>
+                    <li>تسلط عملی بر **یادگیری ماشین (Machine Learning)** و سیستم‌های روباتیک هوشمند.</li>
+                    <li>راه‌اندازی و گسترش پروژه‌های شخصی تکنولوژی و مشارکت در **متن‌باز (Open-source)**.</li>
+                    <li>توسعه مهارت‌های فریلنسینگ در **اتوماسیون فرآیند و توسعه وب**.</li>
+                    <li>ادامه پیشرفت حرفه‌ای در حوزه‌های **رمز ارز (Cryptocurrency) و فین‌تک (Fintech)**.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="contact-form-section">
+            <div class="container">
+                <h2 class="section-title" style="color: var(--text-dark);">شروع پروژه یا مشاوره</h2>
+                
+                <form id="contactForm">
+                    <div class="form-group"><label for="name">نام کامل:</label><input type="text" id="name" name="name" class="form-control" required></div>
+                    <div class="form-group"><label for="email">آدرس ایمیل:</label><input type="email" id="email" name="email" class="form-control" required></div>
+                    <div class="form-group"><label for="subject">موضوع (توسعه، امنیت یا مشاوره):</label><input type="text" id="subject" name="subject" class="form-control" required></div>
+                    <div class="form-group"><label for="message">متن پیام:</label><textarea id="message" name="message" class="form-control" rows="6" required></textarea></div>
+                    
+                    <p id="formStatus" class="message-status"></p>
+                    <button type="submit" id="submitButton" class="btn-primary">ارسال درخواست پیشرفته</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p style="font-size: 0.9rem;">توسعه یافته توسط rohamkhademi139-boop &copy; ۲۰۲۵. با افتخار Powered by Linux 🐧 و کدهای بهینه</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const formStatus = document.getElementById('formStatus');
+            const submitButton = document.getElementById('submitButton');
+
+            // ⚠️ این آدرس را با آدرس Formspree/Getform خود جایگزین کنید!
+            const FORM_ACTION_URL = 'YOUR_EXTERNAL_FORM_API_ENDPOINT_HERE'; 
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                formStatus.textContent = 'در حال ارسال اطلاعات...';
+                submitButton.disabled = true;
+
+                const formData = new FormData(form);
+                const formObject = Object.fromEntries(formData); // روش مدرن ساخت آبجکت از FormData
+
+                fetch(FORM_ACTION_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(formObject)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        formStatus.textContent = 'پیام شما با موفقیت ارسال شد! ✅';
+                        formStatus.style.backgroundColor = '#D1FAE5'; 
+                        formStatus.style.color = '#065F46'; 
+                        form.reset();
+                    } else {
+                        throw new Error('Server or Network Error');
+                    }
+                })
+                .catch(error => {
+                    formStatus.textContent = `خطا: پیام ارسال نشد. لطفاً اتصال اینترنت یا آدرس API را بررسی کنید. ❌`;
+                    formStatus.style.backgroundColor = '#FEE2E2'; 
+                    formStatus.style.color = '#991B1B'; 
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
