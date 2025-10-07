@@ -12,7 +12,7 @@
         /* 🔑 متغیرهای CSS برای وراثت و مدیریت آسان استایل */
         :root {
             --primary-color: #0F766E; /* سبز فیروزه‌ای عمیق */
-            --secondary-color: #1F2937; 
+            --secondary-color: #1F2937; /* خاکستری تیره */
             --accent-color: #FACC15; /* زرد طلایی برای تأکید */
             --bg-light: #F3F4F6;
             --text-dark: #374151;
@@ -20,6 +20,7 @@
             --container-padding: 20px;
         }
 
+        /* فونت و تنظیمات اصلی */
         body {
             font-family: var(--font-family);
             line-height: 1.6;
@@ -28,6 +29,7 @@
             padding-top: 70px;
             background-color: white;
             direction: rtl;
+            scroll-behavior: smooth; /* 💡 اضافه شدن برای Smooth Scrolling */
         }
 
         .container {
@@ -62,6 +64,7 @@
             margin-right: 25px;
             font-weight: 600;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         nav a:hover { color: var(--accent-color); }
@@ -105,6 +108,18 @@
             border-top: 5px solid var(--primary-color);
             transition: all 0.3s ease;
         }
+        
+        /* 💡 انیمیشن کوچک هنگام پیمایش برای جلب توجه */
+        .card.specialty-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .card.specialty-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .card:hover {
             transform: translateY(-8px);
@@ -120,9 +135,10 @@
         
         .skill-list li, .goals-list li {
             list-style: none;
-            padding: 5px 0;
+            padding: 8px 0; /* کمی پدینگ بیشتر */
             display: flex;
             align-items: center;
+            font-size: 1.05rem;
         }
 
         .skill-list li::before {
@@ -137,7 +153,7 @@
             font-size: 1.2rem;
         }
         
-        /* 🔑 فرم تماس */
+        /* 🔑 فرم تماس و وضعیت پیام */
         #contact-form-section {
             background-color: var(--bg-light);
         }
@@ -158,6 +174,35 @@
             border-radius: 8px;
             box-sizing: border-box;
             font-family: inherit;
+            margin-bottom: 20px; /* فاصله بیشتر بین کنترل‌ها */
+        }
+        
+        .message-status {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            display: none; /* در حالت اولیه مخفی است */
+        }
+        
+        /* کلاس‌های وضعیت پیام */
+        .status-success {
+            background-color: #D1FAE5; /* سبز خیلی روشن */
+            color: #065F46; /* سبز تیره */
+            border: 1px solid #34D399;
+        }
+        
+        .status-error {
+            background-color: #FEE2E2; /* قرمز خیلی روشن */
+            color: #991B1B; /* قرمز تیره */
+            border: 1px solid #F87171;
+        }
+        
+        .status-loading {
+             background-color: #FEF3C7; /* زرد روشن */
+             color: #B45309; /* زرد تیره */
+             border: 1px solid #FBBF24;
         }
 
         .btn-primary {
@@ -173,8 +218,38 @@
             transition: background-color 0.3s;
         }
 
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             background-color: #047857;
+        }
+        
+        .btn-primary:disabled {
+            background-color: #9CA3AF;
+            cursor: not-allowed;
+        }
+
+        /* 💡 دکمه بازگشت به بالا (Floating Button) */
+        #scrollTopBtn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            line-height: 50px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            display: none; /* در حالت اولیه مخفی است */
+            transition: opacity 0.3s, background-color 0.3s;
+        }
+        
+        #scrollTopBtn:hover {
+            background-color: #F59E0B;
         }
 
         /* 🔑 ریسپانسیو (Responsive) */
@@ -185,6 +260,7 @@
             nav { margin-top: 10px; }
             nav a { margin-right: 15px; font-size: 0.9rem; }
             .section-title { font-size: 2rem; }
+            #scrollTopBtn { bottom: 20px; right: 20px; }
         }
     </style>
 </head>
@@ -194,10 +270,10 @@
         <div class="container">
             <a href="#hero-resume" class="logo" style="color: white; text-decoration: none;">rohamkhademi139</a>
             <nav>
-                <a href="#hero-resume">معرفی</a>
-                <a href="#specialties">تخصص‌ها</a>
-                <a href="#goals">اهداف</a>
-                <a href="#contact-form-section">تماس</a>
+                <a href="#hero-resume" class="nav-link">معرفی</a>
+                <a href="#specialties" class="nav-link">تخصص‌ها</a>
+                <a href="#goals" class="nav-link">اهداف</a>
+                <a href="#contact-form-section" class="nav-link">تماس</a>
             </nav>
         </div>
     </header>
@@ -214,15 +290,19 @@
                     <h4>📝 بیوگرافی و دیدگاه (فارسی)</h4>
                     <p>من یک **یادگیرنده فعال** هستم که به حل مسائل دنیای واقعی با **کدهای طولانی و سنگین** علاقه دارم. رویکرد من ترکیبی از تمرکز عمیق (Deep Focus) و انرژی خلاقانه است، به ویژه در پروژه‌های اتوماسیون لینوکس و توسعه ابزارهای **تست نفوذ**.</p>
                     <p>**علاقه‌مندی‌های کلیدی:** سیستم‌های لینوکس، پلتفرم‌های Google Cloud و فناوری‌های مایکروسافت.</p>
+                    <p style="margin-top: 15px;">**پلتفرم‌های یادگیری:** فعالانه در پلتفرم‌هایی چون **فرادرس** و **فراداد** در حال تکمیل دوره‌های حرفه‌ای هستم تا در خط مقدم فناوری باقی بمانم.</p>
                 </article>
                 
                 <article class="card" dir="ltr" style="text-align: left; border-top-color: var(--accent-color);">
                     <h4>🧑‍💻 Profile & Philosophy (English)</h4>
                     <p class="english-bio">
-                        An **occasionally talkative learner** who thrives on exploring new technologies and solving real-world problems. My personality blends quiet focus with bursts of creative energy when building innovative solutions.
+                        An **occasionally talkative learner** who thrives on exploring new technologies and solving real-world problems. My personality blends quiet focus with bursts of creative energy—especially when I'm building something innovative or diving deep into complex concepts.
                     </p>
                     <p>
-                        My favorite player is **Joshua Kimmich** (FC Bayern Munich), whose versatility and strategic intelligence inspire my technical approach to problem-solving.
+                        I'm deeply passionate about: **Google Platforms** (cloud tools, developer APIs), **Microsoft Technologies** (Azure cloud services), and **Linux Systems** (flexibility, control, and open-source spirit).
+                    </p>
+                    <p>
+                        My favorite player is **Joshua Kimmich** (FC Bayern Munich), whose versatility, strategic intelligence, and leadership on the pitch inspire my own approach to learning and problem-solving.
                     </p>
                 </article>
             </div>
@@ -233,30 +313,30 @@
             
             <div class="card-grid">
                 
-                <div class="card">
+                <div class="card specialty-card" data-order="1">
                     <h4>🐍 Python (کدهای سنگین و پیشرفته)</h4>
                     <ul class="skill-list">
                         <li>توسعه ابزارهای **تست نفوذ** (Penetration Testing Tools)</li>
-                        <li>اسکریپت‌نویسی برای اتوماسیون فرآیندهای پیچیده</li>
-                        <li>بک‌اند سبک (مانند فریم‌ورک‌های Micro-framework)</li>
+                        <li>اسکریپت‌نویسی برای اتوماسیون فرآیندهای پیچیده و وظایف سنگین</li>
+                        <li>بک‌اند سبک (مانند فریم‌ورک‌های Micro-framework) و توسعه API.</li>
                     </ul>
                 </div>
                 
-                <div class="card">
+                <div class="card specialty-card" data-order="2">
                     <h4>🐧 Linux & Bash (قدرت سیستم عامل)</h4>
                     <ul class="skill-list">
-                        <li>اسکریپت‌های Bash برای مدیریت و بهینه‌سازی سیستم</li>
-                        <li>پیکربندی پیشرفته و محیط‌های مجازی (Containers)</li>
-                        <li>استفاده از ابزارهای CLI در سطح توسعه‌دهنده.</li>
+                        <li>اسکریپت‌های Bash برای مدیریت و بهینه‌سازی سیستم‌های لینوکس</li>
+                        <li>پیکربندی پیشرفته و محیط‌های مجازی (Containers/VMs)</li>
+                        <li>استفاده از ابزارهای CLI در سطح توسعه‌دهنده و مهندسی.</li>
                     </ul>
                 </div>
 
-                <div class="card">
+                <div class="card specialty-card" data-order="3">
                     <h4>⚛️ Kotlin & HTML (فرانت‌اند و کراس‌پلتفرم)</h4>
                     <ul class="skill-list">
-                        <li>توسعه با Kotlin (برای اپلیکیشن‌ها یا بک‌اند مدرن)</li>
-                        <li>طراحی رابط کاربری با HTML/CSS پیشرفته</li>
-                        <li>استفاده از اصول **وراثت CSS** برای کدهای تمیزتر.</li>
+                        <li>توسعه با **Kotlin** (برای اپلیکیشن‌ها یا بک‌اند مدرن)</li>
+                        <li>طراحی رابط کاربری با **HTML/CSS** پیشرفته و ریسپانسیو</li>
+                        <li>استفاده از اصول **وراثت CSS** برای کدهای تمیز و قابل نگهداری.</li>
                     </ul>
                 </div>
             </div>
@@ -268,9 +348,9 @@
             <div style="max-width: 900px; margin: 0 auto;">
                 <ul class="goals-list">
                     <li>کسب پذیرش در برنامه دبیرستانی تخصصی در **علوم کامپیوتر یا هوش مصنوعی (AI)**.</li>
-                    <li>تسلط عملی بر **یادگیری ماشین (Machine Learning)** و سیستم‌های روباتیک هوشمند.</li>
-                    <li>راه‌اندازی و گسترش پروژه‌های شخصی تکنولوژی و مشارکت در **متن‌باز (Open-source)**.</li>
-                    <li>توسعه مهارت‌های فریلنسینگ در **اتوماسیون فرآیند و توسعه وب**.</li>
+                    <li>تسلط پیشرفته و عملی بر **یادگیری ماشین (Machine Learning)** و سیستم‌های روباتیک هوشمند.</li>
+                    <li>راه‌اندازی و گسترش پروژه‌های شخصی تکنولوژی و مشارکت فعال در **متن‌باز (Open-source)**.</li>
+                    <li>توسعه مهارت‌های فریلنسینگ در حوزه‌های **اتوماسیون فرآیند و توسعه وب**.</li>
                     <li>ادامه پیشرفت حرفه‌ای در حوزه‌های **رمز ارز (Cryptocurrency) و فین‌تک (Fintech)**.</li>
                 </ul>
             </div>
@@ -293,29 +373,105 @@
         </section>
     </main>
 
+    <button id="scrollTopBtn" title="بازگشت به بالا">⬆️</button>
+
     <footer>
         <div class="container">
-            <p style="font-size: 0.9rem;">توسعه یافته توسط rohamkhademi139-boop &copy; ۲۰۲۵. با افتخار Powered by Linux 🐧 و کدهای بهینه</p>
+            <p style="font-size: 0.9rem;">توسعه یافته توسط rohamkhademi139 &copy; ۲۰۲۵. با افتخار Powered by **Linux** 🐧 و کدهای بهینه</p>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // =======================================================
+            // ۱. تعاملی کردن ناوبری (Smooth Scroll)
+            // =======================================================
+            document.querySelectorAll('nav a.nav-link').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // =======================================================
+            // ۲. نمایش دکمه بازگشت به بالا (Scroll Top Button)
+            // =======================================================
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            
+            window.onscroll = function() {
+                // نمایش دکمه بعد از ۱۰۰ پیکسل پیمایش
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    scrollTopBtn.style.display = "block";
+                } else {
+                    scrollTopBtn.style.display = "none";
+                }
+                
+                checkSectionVisibility(); // برای انیمیشن تخصص‌ها
+            };
+
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // =======================================================
+            // ۳. انیمیشن هنگام پیمایش برای بخش تخصص‌ها
+            // =======================================================
+            const specialtyCards = document.querySelectorAll('.specialty-card');
+            
+            function checkSectionVisibility() {
+                const specialtiesSection = document.getElementById('specialties');
+                if (!specialtiesSection) return;
+
+                const sectionTop = specialtiesSection.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                // اگر بخش تخصص‌ها وارد viewport شد (مثلاً از نیمه پایین صفحه)
+                if (sectionTop < windowHeight - 150) {
+                    specialtyCards.forEach((card, index) => {
+                        // افزودن کلاس visible با تأخیر (Delay) بر اساس ترتیب
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 200); // 200 میلی‌ثانیه تأخیر بین هر کارت
+                    });
+                    // پس از نمایش، ریمو کردن ایونت لیسنر برای جلوگیری از اجرای مجدد
+                    window.removeEventListener('scroll', checkSectionVisibility);
+                }
+            }
+            
+            // اجرای اولیه در صورت لزوم
+            window.addEventListener('scroll', checkSectionVisibility);
+            checkSectionVisibility(); // اجرای یک بار هنگام بارگذاری
+            
+            // =======================================================
+            // ۴. مدیریت فرم تماس (با بهبود وضعیت پیام)
+            // =======================================================
             const form = document.getElementById('contactForm');
             const formStatus = document.getElementById('formStatus');
             const submitButton = document.getElementById('submitButton');
 
             // ⚠️ این آدرس را با آدرس Formspree/Getform خود جایگزین کنید!
-            const FORM_ACTION_URL = 'YOUR_EXTERNAL_FORM_API_ENDPOINT_HERE'; 
+            const FORM_ACTION_URL = 'YOUR_EXTERNAL_FORM_API_ENDPOINT_HERE'; // لطفا این را با API واقعی جایگزین کنید
 
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
+                
+                // وضعیت در حال ارسال
                 formStatus.textContent = 'در حال ارسال اطلاعات...';
+                formStatus.className = 'message-status status-loading';
+                formStatus.style.display = 'block';
                 submitButton.disabled = true;
 
                 const formData = new FormData(form);
-                const formObject = Object.fromEntries(formData); // روش مدرن ساخت آبجکت از FormData
+                const formObject = Object.fromEntries(formData); 
 
+                // شبیه‌سازی ارسال (چون Form URL واقعی نیست)
+                // در محیط واقعی، این خطوط را فعال کنید:
+                /*
                 fetch(FORM_ACTION_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -323,21 +479,35 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        formStatus.textContent = 'پیام شما با موفقیت ارسال شد! ✅';
-                        formStatus.style.backgroundColor = '#D1FAE5'; 
-                        formStatus.style.color = '#065F46'; 
-                        form.reset();
+                        return Promise.resolve();
                     } else {
-                        throw new Error('Server or Network Error');
+                        return Promise.reject(new Error('خطای سرور'));
                     }
                 })
+                */
+                
+                // کد شبیه‌سازی پاسخ (برای نمایش عملکرد JS)
+                new Promise(resolve => setTimeout(() => {
+                    const success = Math.random() > 0.1; // 90% احتمال موفقیت
+                    if (success) {
+                        resolve();
+                    } else {
+                        // شبیه‌سازی خطا
+                        throw new Error('خطای شبکه/API شبیه‌سازی شده'); 
+                    }
+                }, 1500))
+                .then(() => {
+                    formStatus.textContent = 'پیام شما با موفقیت ارسال شد! ✅';
+                    formStatus.className = 'message-status status-success';
+                    form.reset();
+                })
                 .catch(error => {
-                    formStatus.textContent = `خطا: پیام ارسال نشد. لطفاً اتصال اینترنت یا آدرس API را بررسی کنید. ❌`;
-                    formStatus.style.backgroundColor = '#FEE2E2'; 
-                    formStatus.style.color = '#991B1B'; 
+                    formStatus.textContent = `خطا: پیام ارسال نشد. لطفاً آدرس API (Formspree/Getform) را جایگزین کنید. ❌`;
+                    formStatus.className = 'message-status status-error';
                 })
                 .finally(() => {
                     submitButton.disabled = false;
+                    setTimeout(() => formStatus.style.display = 'none', 7000); // پیام بعد از ۷ ثانیه پنهان شود
                 });
             });
         });
