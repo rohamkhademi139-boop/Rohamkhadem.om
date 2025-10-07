@@ -3,39 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rohamkhademi139 - توسعه‌دهنده پیشرفته پایتون، کاتلین و Bash | رزومه تخصصی</title>
+    <title>rohamkhademi139 - توسعه‌دهنده سیستم و امنیت (Pentesting) | رزومه حرفه‌ای</title>
     <meta name="description" content="رزومه کامل rohamkhademi139: متخصص توسعه سیستم، اتوماسیون با پایتون و Bash در لینوکس، و توسعه اپلیکیشن با کاتلین. آماده برای پروژه‌های تست نفوذ و فین‌تک.">
-    <meta name="keywords" content="Python, Bash, Kotlin, Linux, توسعه‌دهنده, تست نفوذ, اتوماسیون, فین‌تک, rohamkhademi139">
+    <meta name="keywords" content="Python, Bash, Kotlin, Linux, توسعه‌دهنده, تست نفوذ, اتوماسیون, فین‌تک, rohamkhademi139, توسعه سیستم‌های هوشمند">
     <meta name="author" content="rohamkhademi139">
 
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
-        /* 🔑 متغیرهای CSS برای وراثت و مدیریت آسان استایل */
+        /* 🔑 متغیرهای CSS برای وراثت و مدیریت آسان استایل (پالت رنگی به‌روز شده) */
         :root {
-            --primary-color: #0F766E; /* سبز فیروزه‌ای عمیق */
-            --secondary-color: #1F2937; /* خاکستری تیره */
-            --accent-color: #FACC15; /* زرد طلایی برای تأکید */
-            --bg-light: #F3F4F6;
-            --text-dark: #374151;
-            --font-family: 'Tahoma', 'Vazir', sans-serif;
+            --primary-color: #059669; /* سبز زمردی عمیق و دوستانه */
+            --secondary-color: #1a202c; /* خاکستری تیره مایل به مشکی (مثل Tailwind gray-900) */
+            --accent-color: #FACC15; /* زرد طلایی (برجسته) */
+            --bg-light: #F8F9FA; /* پس‌زمینه روشن ملایم */
+            --text-dark: #2d3748; /* رنگ متن اصلی (تقریباً خاکستری-سرمه‌ای) */
+            --text-light: #4a5568; /* رنگ متن ثانویه */
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0; /* رنگ خطوط جداکننده */
+            --shadow-light: 0 4px 6px rgba(0,0,0,0.08);
+            --shadow-medium: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-strong: 0 20px 25px rgba(0,0,0,0.15);
+            --font-family-fa: 'Vazirmatn', sans-serif;
+            --font-family-en: 'Poppins', sans-serif;
             --container-padding: 20px;
         }
 
-        /* فونت و تنظیمات اصلی */
+        /* تنظیمات عمومی و پایه */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth; /* 💡 پیمایش نرم برای کل صفحه */
+        }
+
         body {
-            font-family: var(--font-family);
-            line-height: 1.6;
+            font-family: var(--font-family-fa);
+            line-height: 1.8; /* خطوط با فاصله بیشتر برای خوانایی بهتر */
             color: var(--text-dark);
             margin: 0;
-            padding-top: 70px;
-            background-color: white;
+            padding-top: 70px; /* برای هدربار ثابت */
+            background: linear-gradient(135deg, var(--bg-light) 0%, #edf2f7 100%); /* 🌟 گرادیانت پس‌زمینه */
             direction: rtl;
-            scroll-behavior: smooth; /* 💡 اضافه شدن برای Smooth Scrolling */
+            overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
         }
 
         .container {
             max-width: 1200px;
             margin: auto;
             padding: 0 var(--container-padding);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-family-fa);
+            color: var(--secondary-color);
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+        }
+
+        p {
+            margin-bottom: 1em;
+            color: var(--text-light);
         }
 
         /* 🔑 HEADER ثابت و حرفه‌ای */
@@ -47,7 +80,7 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-medium);
         }
 
         header .container {
@@ -56,64 +89,168 @@
             align-items: center;
         }
 
-        .logo { font-size: 1.5rem; font-weight: bold; }
+        .logo { 
+            font-family: var(--font-family-en); /* فونت انگلیسی برای لوگو */
+            font-size: 1.6rem; 
+            font-weight: 700; 
+            color: var(--accent-color) !important; /* رنگ برجسته برای لوگو */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .logo:hover {
+            color: white !important;
+        }
 
         nav a {
             color: white;
             text-decoration: none;
             margin-right: 25px;
-            font-weight: 600;
-            transition: color 0.3s;
+            font-weight: 500; /* وزن فونت کمی کمتر */
+            transition: color 0.3s ease, transform 0.2s ease;
             cursor: pointer;
+            position: relative;
+            padding: 5px 0;
         }
 
-        nav a:hover { color: var(--accent-color); }
+        nav a:hover { 
+            color: var(--accent-color); 
+            transform: translateY(-2px); /* 💡 انیمیشن کوچک هنگام هاور */
+        }
+        nav a::after { /* 💡 خط زیرین متحرک */
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* 🔑 Scroll Progress Indicator */
+        #progressBar {
+            position: fixed;
+            top: 0;
+            right: 0; /* چون صفحه RTL است */
+            width: 0%;
+            height: 4px;
+            background-color: var(--accent-color);
+            z-index: 1001;
+            transition: width 0.1s linear; /* 💡 حرکت نرم‌تر نوار پیشرفت */
+        }
 
         /* 🔑 استایل بخش‌ها و عناوین */
         section {
-            padding: 60px 0;
+            padding: 80px 0; /* پدینگ بیشتر برای فضای تنفس */
+            position: relative;
+            z-index: 1; /* اطمینان از قرارگیری روی پس‌زمینه گرادیانت */
         }
         
         .section-title {
-            font-size: 2.5rem;
-            color: var(--primary-color);
+            font-size: 3rem; /* اندازه بزرگتر برای عناوین اصلی */
+            color: var(--secondary-color); /* رنگ تیره برای وضوح */
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px; /* فاصله بیشتر */
             position: relative;
+            font-weight: 700;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--accent-color);
-            margin: 10px auto 0;
-            border-radius: 2px;
+            width: 100px; /* خط زیرین کمی بلندتر */
+            height: 5px; /* کمی ضخیم‌تر */
+            background: var(--primary-color); /* از رنگ اصلی استفاده شود */
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        /* 🔑 Hero Section (بخش معرفی) - طراحی ویژه */
+        #hero-resume {
+            padding: 100px 0;
+            text-align: center;
+            background: radial-gradient(circle at top, #e0f2f7, var(--bg-light)); /* 🌟 گرادیانت پس‌زمینه لطیف */
+            position: relative;
+            overflow: hidden; /* برای جلوگیری از سرریز انیمیشن‌ها */
+        }
+
+        #hero-resume h1 {
+            font-size: 3.8rem; /* عنوان بسیار بزرگ */
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: -1px; /* فاصله بین حروف کمتر */
+            animation: fadeInDown 1s ease-out forwards; /* 💡 انیمیشن ورود عنوان */
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        #hero-resume p {
+            font-size: 1.5rem; /* متن توضیحی بزرگتر */
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+
+        /* 🌟 تصویر پروفایل (Placeholder) */
+        .profile-image-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 30px auto;
+            border: 6px solid var(--accent-color); /* دور تصویر */
+            box-shadow: var(--shadow-strong);
+            animation: zoomIn 1s ease-out forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+        .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(10%); /* کمی خاکستری برای جلوه حرفه‌ای */
+            transition: filter 0.5s ease;
+        }
+        .profile-image-container img:hover {
+            filter: grayscale(0%);
         }
 
         /* 🔑 کارت‌های اطلاعاتی (برای تخصص‌ها و اهداف) */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* کارت‌های کمی پهن‌تر */
             gap: 30px;
-            margin-top: 30px;
+            margin-top: 40px;
         }
         
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
-            border-top: 5px solid var(--primary-color);
-            transition: all 0.3s ease;
+            background: var(--card-bg);
+            padding: 35px; /* پدینگ بیشتر */
+            border-radius: 16px; /* گوشه‌های گردتر */
+            box-shadow: var(--shadow-medium);
+            border-top: 6px solid var(--primary-color); /* حاشیه بالایی ضخیم‌تر */
+            transition: all 0.4s ease; /* انیمیشن نرم‌تر */
+            overflow: hidden; /* برای Shadow Overflow */
+            position: relative;
+            transform: translateY(0); /* حالت اولیه */
         }
-        
+        /* کلاس‌های رنگی برای کارت‌های بیوگرافی */
+        .card.bio-fa { border-top-color: var(--primary-color); }
+        .card.bio-en { border-top-color: var(--accent-color); }
+
         /* 💡 انیمیشن کوچک هنگام پیمایش برای جلب توجه */
         .card.specialty-card {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(30px); /* شروع از کمی پایین‌تر */
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out, box-shadow 0.3s ease;
         }
         
         .card.specialty-card.visible {
@@ -122,109 +259,150 @@
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+            transform: translateY(-10px); /* بالا آمدن بیشتر */
+            box-shadow: var(--shadow-strong);
         }
 
         .card h4 {
+            font-size: 1.6rem; /* عنوان داخل کارت بزرگتر */
             color: var(--secondary-color);
-            border-bottom: 1px solid var(--bg-light);
-            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color); /* خط جداکننده ضخیم‌تر */
+            padding-bottom: 15px;
             margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
         
-        .skill-list li, .goals-list li {
+        .skill-list, .goals-list {
             list-style: none;
-            padding: 8px 0; /* کمی پدینگ بیشتر */
+            padding-right: 0;
+            margin-top: 15px;
+        }
+
+        .skill-list li, .goals-list li {
+            padding: 10px 0; /* پدینگ بیشتر برای آیتم‌های لیست */
             display: flex;
-            align-items: center;
-            font-size: 1.05rem;
+            align-items: flex-start; /* آیتم‌ها از بالا شروع شوند */
+            font-size: 1.1rem;
+            color: var(--text-light);
+            border-bottom: 1px dashed var(--border-color); /* خطوط نقطه‌چین ظریف */
+        }
+        .skill-list li:last-child, .goals-list li:last-child {
+            border-bottom: none; /* آخرین آیتم خط جداکننده ندارد */
         }
 
-        .skill-list li::before {
-            content: "🛠️";
-            margin-left: 10px;
-            font-size: 1.2rem;
+        .skill-list li::before, .goals-list li::before {
+            font-family: 'Font Awesome 5 Free'; /* استفاده از Font Awesome */
+            font-weight: 900;
+            color: var(--primary-color); /* رنگ آیکون‌ها */
+            margin-left: 15px;
+            font-size: 1.3rem;
+            flex-shrink: 0; /* جلوگیری از کوچک شدن آیکون */
+            margin-top: 3px; /* تنظیم عمودی آیکون */
         }
-
-        .goals-list li::before {
-            content: "🎯";
-            margin-left: 10px;
-            font-size: 1.2rem;
-        }
+        .skill-list li::before { content: "\f0ad"; /* 🛠️ برای مهارت‌ها */ }
+        .goals-list li::before { content: "\f058"; /* ✅ برای اهداف */ } /* 💡 آیکون چک‌مارک */
         
         /* 🔑 فرم تماس و وضعیت پیام */
         #contact-form-section {
-            background-color: var(--bg-light);
+            background: linear-gradient(135deg, #e9f5f5 0%, #d8e6e6 100%); /* گرادیانت ملایم برای این بخش */
         }
 
         #contactForm {
-            max-width: 650px;
+            max-width: 700px; /* فرم کمی پهن‌تر */
             margin: 0 auto;
-            padding: 40px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 0 25px rgba(0,0,0,0.15);
+            padding: 50px; /* پدینگ بیشتر */
+            background: var(--card-bg);
+            border-radius: 20px; /* گوشه‌های گردتر */
+            box-shadow: var(--shadow-strong);
+        }
+
+        .form-group {
+            margin-bottom: 25px; /* فاصله بیشتر بین فیلدها */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 14px;
-            border: 1px solid #D1D5DB;
-            border-radius: 8px;
+            padding: 16px; /* پدینگ بیشتر برای ورودی‌ها */
+            border: 2px solid var(--border-color); /* خطوط ضخیم‌تر */
+            border-radius: 10px; /* گوشه‌های گردتر */
             box-sizing: border-box;
-            font-family: inherit;
-            margin-bottom: 20px; /* فاصله بیشتر بین کنترل‌ها */
+            font-family: var(--font-family-fa);
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color); /* رنگ تمرکز */
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.2); /* شادو در فوکوس */
+            outline: none;
         }
         
         .message-status {
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 6px;
+            padding: 15px; /* پدینگ بیشتر */
+            margin-bottom: 20px;
+            border-radius: 8px;
             text-align: center;
-            font-weight: 700;
-            display: none; /* در حالت اولیه مخفی است */
+            font-weight: 600;
+            display: none;
+            font-size: 1.05rem;
+            border: 1px solid;
+            transition: all 0.3s ease;
         }
         
-        /* کلاس‌های وضعیت پیام */
+        /* کلاس‌های وضعیت پیام (کمی روشن‌تر و زنده‌تر) */
         .status-success {
-            background-color: #D1FAE5; /* سبز خیلی روشن */
-            color: #065F46; /* سبز تیره */
-            border: 1px solid #34D399;
+            background-color: #D1FAE5;
+            color: #065F46;
+            border-color: #34D399;
         }
         
         .status-error {
-            background-color: #FEE2E2; /* قرمز خیلی روشن */
-            color: #991B1B; /* قرمز تیره */
-            border: 1px solid #F87171;
+            background-color: #FEE2E2;
+            color: #991B1B;
+            border-color: #F87171;
         }
         
         .status-loading {
-             background-color: #FEF3C7; /* زرد روشن */
-             color: #B45309; /* زرد تیره */
-             border: 1px solid #FBBF24;
+             background-color: #FEF3C7;
+             color: #B45309;
+             border-color: #FBBF24;
         }
 
         .btn-primary {
             width: 100%;
-            padding: 16px;
+            padding: 18px; /* دکمه بزرگتر */
             background-color: var(--primary-color);
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.3rem; /* متن دکمه بزرگتر */
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-light);
         }
 
         .btn-primary:hover:not(:disabled) {
-            background-color: #047857;
+            background-color: #047857; /* رنگ کمی تیره‌تر در هاور */
+            transform: translateY(-3px); /* 💡 بالا آمدن دکمه در هاور */
+            box-shadow: var(--shadow-medium);
         }
         
         .btn-primary:disabled {
-            background-color: #9CA3AF;
+            background-color: #CBD5E0; /* رنگ خاکستری غیرفعال */
             cursor: not-allowed;
+            transform: translateY(0);
+            box-shadow: none;
         }
 
         /* 💡 دکمه بازگشت به بالا (Floating Button) */
@@ -233,42 +411,89 @@
             bottom: 30px;
             right: 30px;
             z-index: 999;
-            width: 50px;
-            height: 50px;
+            width: 55px; /* کمی بزرگتر */
+            height: 55px;
             background-color: var(--accent-color);
             color: var(--secondary-color);
             border: none;
             border-radius: 50%;
-            font-size: 1.5rem;
-            line-height: 50px;
+            font-size: 1.8rem; /* آیکون بزرگتر */
+            line-height: 55px; /* تنظیم عمودی آیکون */
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-medium);
             cursor: pointer;
-            display: none; /* در حالت اولیه مخفی است */
-            transition: opacity 0.3s, background-color 0.3s;
+            display: none;
+            opacity: 0; /* شروع با شفافیت ۰ */
+            transition: opacity 0.4s ease, background-color 0.3s ease, transform 0.3s ease;
         }
         
-        #scrollTopBtn:hover {
-            background-color: #F59E0B;
+        #scrollTopBtn.show {
+            opacity: 1;
         }
 
-        /* 🔑 ریسپانسیو (Responsive) */
+        #scrollTopBtn:hover {
+            background-color: #F59E0B;
+            transform: translateY(-5px); /* 💡 بالا آمدن دکمه در هاور */
+        }
+
+        /* 🌟 انیمیشن‌های CSS */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* 🔑 ریسپانسیو (Responsive) - بهینه‌سازی بیشتر */
         @media (max-width: 768px) {
             body { padding-top: 60px; }
             .card-grid { grid-template-columns: 1fr; }
-            header .container { flex-direction: column; }
-            nav { margin-top: 10px; }
-            nav a { margin-right: 15px; font-size: 0.9rem; }
-            .section-title { font-size: 2rem; }
-            #scrollTopBtn { bottom: 20px; right: 20px; }
+            header .container { flex-direction: column; text-align: center; }
+            nav { margin-top: 15px; display: flex; flex-wrap: wrap; justify-content: center; }
+            nav a { margin: 5px 10px; font-size: 0.95rem; }
+            .section-title { font-size: 2.2rem; margin-bottom: 40px; }
+            #hero-resume h1 { font-size: 2.8rem; }
+            #hero-resume p { font-size: 1.2rem; }
+            .profile-image-container { width: 150px; height: 150px; border-width: 4px; margin-bottom: 20px;}
+            .card { padding: 25px; border-radius: 12px; }
+            .card h4 { font-size: 1.4rem; padding-bottom: 10px; margin-bottom: 15px; }
+            .skill-list li, .goals-list li { font-size: 1rem; padding: 8px 0; }
+            .skill-list li::before, .goals-list li::before { font-size: 1.1rem; margin-left: 10px; }
+            #contactForm { padding: 30px; border-radius: 15px; }
+            .form-group label { font-size: 1rem; margin-bottom: 8px; }
+            .form-control { padding: 12px; border-radius: 8px; }
+            .btn-primary { padding: 15px; font-size: 1.1rem; border-radius: 8px; }
+            #scrollTopBtn { bottom: 20px; right: 20px; width: 45px; height: 45px; font-size: 1.4rem; line-height: 45px;}
+        }
+
+        @media (max-width: 480px) {
+            .logo { font-size: 1.4rem; }
+            nav a { margin: 3px 8px; font-size: 0.9rem; }
+            .section-title { font-size: 1.8rem; margin-bottom: 30px; }
+            #hero-resume h1 { font-size: 2.2rem; }
+            #hero-resume p { font-size: 1rem; }
+            .profile-image-container { width: 120px; height: 120px; border-width: 3px; margin-bottom: 15px;}
+            .card { padding: 20px; }
+            .card h4 { font-size: 1.2rem; }
+            #contactForm { padding: 25px; }
         }
     </style>
 </head>
 <body>
     
+    <div id="progressBar"></div>
+
     <header>
         <div class="container">
-            <a href="#hero-resume" class="logo" style="color: white; text-decoration: none;">rohamkhademi139</a>
+            <a href="#hero-resume" class="logo">rohamkhademi139</a>
             <nav>
                 <a href="#hero-resume" class="nav-link">معرفی</a>
                 <a href="#specialties" class="nav-link">تخصص‌ها</a>
@@ -280,41 +505,44 @@
 
     <main>
         <section id="hero-resume" class="container">
-            <hgroup style="text-align: center; margin-bottom: 50px;">
+            <div class="profile-image-container">
+                <img src="https://via.placeholder.com/180/FACC15/1a202c?text=Roham" alt="تصویر پروفایل rohamkhademi139">
+            </div>
+            <hgroup>
                 <h1>توسعه‌دهنده سیستم‌های هوشمند و امنیت (Pentesting)</h1>
-                <p style="color: var(--primary-color); font-size: 1.3rem; font-weight: 500;">**Python**, **Kotlin**, **Bash** | متخصص در محیط **لینوکس** و پلتفرم‌های ابری</p>
+                <p style="font-family: var(--font-family-en);">**Python**, **Kotlin**, **Bash** | متخصص در محیط **Linux** و پلتفرم‌های ابری</p>
             </hgroup>
             
             <div class="card-grid">
-                <article class="card">
+                <article class="card bio-fa">
                     <h4>📝 بیوگرافی و دیدگاه (فارسی)</h4>
                     <p>من یک **یادگیرنده فعال** هستم که به حل مسائل دنیای واقعی با **کدهای طولانی و سنگین** علاقه دارم. رویکرد من ترکیبی از تمرکز عمیق (Deep Focus) و انرژی خلاقانه است، به ویژه در پروژه‌های اتوماسیون لینوکس و توسعه ابزارهای **تست نفوذ**.</p>
                     <p>**علاقه‌مندی‌های کلیدی:** سیستم‌های لینوکس، پلتفرم‌های Google Cloud و فناوری‌های مایکروسافت.</p>
                     <p style="margin-top: 15px;">**پلتفرم‌های یادگیری:** فعالانه در پلتفرم‌هایی چون **فرادرس** و **فراداد** در حال تکمیل دوره‌های حرفه‌ای هستم تا در خط مقدم فناوری باقی بمانم.</p>
                 </article>
                 
-                <article class="card" dir="ltr" style="text-align: left; border-top-color: var(--accent-color);">
+                <article class="card bio-en" dir="ltr" style="text-align: left;">
                     <h4>🧑‍💻 Profile & Philosophy (English)</h4>
-                    <p class="english-bio">
+                    <p style="font-family: var(--font-family-en);" class="english-bio">
                         An **occasionally talkative learner** who thrives on exploring new technologies and solving real-world problems. My personality blends quiet focus with bursts of creative energy—especially when I'm building something innovative or diving deep into complex concepts.
                     </p>
-                    <p>
+                    <p style="font-family: var(--font-family-en);">
                         I'm deeply passionate about: **Google Platforms** (cloud tools, developer APIs), **Microsoft Technologies** (Azure cloud services), and **Linux Systems** (flexibility, control, and open-source spirit).
                     </p>
-                    <p>
+                    <p style="font-family: var(--font-family-en);">
                         My favorite player is **Joshua Kimmich** (FC Bayern Munich), whose versatility, strategic intelligence, and leadership on the pitch inspire my own approach to learning and problem-solving.
                     </p>
                 </article>
             </div>
         </section>
 
-        <section id="specialties" class="container" style="background-color: var(--bg-light); border-radius: 12px;">
-            <h2 class="section-title">تخصص‌های برنامه‌نویسی و سیستم</h2>
+        <section id="specialties" class="container" style="background-color: var(--bg-light); border-radius: 18px; padding-top: 70px; padding-bottom: 70px;">
+            <h2 class="section-title" style="color: var(--primary-color);">تخصص‌های برنامه‌نویسی و سیستم</h2>
             
             <div class="card-grid">
                 
                 <div class="card specialty-card" data-order="1">
-                    <h4>🐍 Python (کدهای سنگین و پیشرفته)</h4>
+                    <h4><i class="fab fa-python" style="margin-left: 10px; color: #306998;"></i> Python (کدهای سنگین و پیشرفته)</h4>
                     <ul class="skill-list">
                         <li>توسعه ابزارهای **تست نفوذ** (Penetration Testing Tools)</li>
                         <li>اسکریپت‌نویسی برای اتوماسیون فرآیندهای پیچیده و وظایف سنگین</li>
@@ -323,7 +551,7 @@
                 </div>
                 
                 <div class="card specialty-card" data-order="2">
-                    <h4>🐧 Linux & Bash (قدرت سیستم عامل)</h4>
+                    <h4><i class="fab fa-linux" style="margin-left: 10px; color: #FCC624;"></i> Linux & Bash (قدرت سیستم عامل)</h4>
                     <ul class="skill-list">
                         <li>اسکریپت‌های Bash برای مدیریت و بهینه‌سازی سیستم‌های لینوکس</li>
                         <li>پیکربندی پیشرفته و محیط‌های مجازی (Containers/VMs)</li>
@@ -332,7 +560,7 @@
                 </div>
 
                 <div class="card specialty-card" data-order="3">
-                    <h4>⚛️ Kotlin & HTML (فرانت‌اند و کراس‌پلتفرم)</h4>
+                    <h4><i class="fas fa-code" style="margin-left: 10px; color: #7F52FF;"></i> Kotlin & Web (فرانت‌اند و کراس‌پلتفرم)</h4>
                     <ul class="skill-list">
                         <li>توسعه با **Kotlin** (برای اپلیکیشن‌ها یا بک‌اند مدرن)</li>
                         <li>طراحی رابط کاربری با **HTML/CSS** پیشرفته و ریسپانسیو</li>
@@ -361,23 +589,23 @@
                 <h2 class="section-title" style="color: var(--text-dark);">شروع پروژه یا مشاوره</h2>
                 
                 <form id="contactForm">
-                    <div class="form-group"><label for="name">نام کامل:</label><input type="text" id="name" name="name" class="form-control" required></div>
-                    <div class="form-group"><label for="email">آدرس ایمیل:</label><input type="email" id="email" name="email" class="form-control" required></div>
-                    <div class="form-group"><label for="subject">موضوع (توسعه، امنیت یا مشاوره):</label><input type="text" id="subject" name="subject" class="form-control" required></div>
-                    <div class="form-group"><label for="message">متن پیام:</label><textarea id="message" name="message" class="form-control" rows="6" required></textarea></div>
+                    <div class="form-group"><label for="name">نام کامل:</label><input type="text" id="name" name="name" class="form-control" placeholder="نام و نام خانوادگی شما" required></div>
+                    <div class="form-group"><label for="email">آدرس ایمیل:</label><input type="email" id="email" name="email" class="form-control" placeholder="example@domain.com" required></div>
+                    <div class="form-group"><label for="subject">موضوع (توسعه، امنیت یا مشاوره):</label><input type="text" id="subject" name="subject" class="form-control" placeholder="موضوع پیام شما" required></div>
+                    <div class="form-group"><label for="message">متن پیام:</label><textarea id="message" name="message" class="form-control" rows="7" placeholder="پیام خود را اینجا بنویسید..." required></textarea></div>
                     
                     <p id="formStatus" class="message-status"></p>
-                    <button type="submit" id="submitButton" class="btn-primary">ارسال درخواست پیشرفته</button>
+                    <button type="submit" id="submitButton" class="btn-primary">ارسال درخواست پیشرفته <i class="fas fa-paper-plane" style="margin-right: 8px;"></i></button>
                 </form>
             </div>
         </section>
     </main>
 
-    <button id="scrollTopBtn" title="بازگشت به بالا">⬆️</button>
+    <button id="scrollTopBtn" title="بازگشت به بالا"><i class="fas fa-arrow-up"></i></button>
 
     <footer>
         <div class="container">
-            <p style="font-size: 0.9rem;">توسعه یافته توسط rohamkhademi139 &copy; ۲۰۲۵. با افتخار Powered by **Linux** 🐧 و کدهای بهینه</p>
+            <p style="font-size: 0.95rem; color: #a0aec0;">توسعه یافته توسط rohamkhademi139 &copy; ۲۰۲۵. با افتخار Powered by **Linux** 🐧 و کدهای بهینه</p>
         </div>
     </footer>
 
@@ -396,18 +624,26 @@
             });
 
             // =======================================================
-            // ۲. نمایش دکمه بازگشت به بالا (Scroll Top Button)
+            // ۲. نوار پیشرفت پیمایش (Scroll Progress Bar)
+            // =======================================================
+            const progressBar = document.getElementById("progressBar");
+            window.addEventListener('scroll', () => {
+                const totalHeight = document.body.scrollHeight - window.innerHeight;
+                const progress = (window.scrollY / totalHeight) * 100;
+                progressBar.style.width = progress + "%";
+            });
+
+            // =======================================================
+            // ۳. نمایش/پنهان کردن دکمه بازگشت به بالا (Scroll Top Button)
             // =======================================================
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             
             window.onscroll = function() {
-                // نمایش دکمه بعد از ۱۰۰ پیکسل پیمایش
-                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                    scrollTopBtn.style.display = "block";
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    scrollTopBtn.classList.add('show');
                 } else {
-                    scrollTopBtn.style.display = "none";
+                    scrollTopBtn.classList.remove('show');
                 }
-                
                 checkSectionVisibility(); // برای انیمیشن تخصص‌ها
             };
 
@@ -419,36 +655,35 @@
             });
             
             // =======================================================
-            // ۳. انیمیشن هنگام پیمایش برای بخش تخصص‌ها
+            // ۴. انیمیشن هنگام پیمایش برای بخش تخصص‌ها
             // =======================================================
             const specialtyCards = document.querySelectorAll('.specialty-card');
-            
+            let specialtiesAnimated = false; // برای جلوگیری از اجرای مجدد انیمیشن
+
             function checkSectionVisibility() {
+                if (specialtiesAnimated) return; // اگر قبلا انیمیت شده، برگرد
+
                 const specialtiesSection = document.getElementById('specialties');
                 if (!specialtiesSection) return;
 
                 const sectionTop = specialtiesSection.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
                 
-                // اگر بخش تخصص‌ها وارد viewport شد (مثلاً از نیمه پایین صفحه)
-                if (sectionTop < windowHeight - 150) {
+                if (sectionTop < windowHeight - 250) { // وقتی بخش قابل مشاهده شد
                     specialtyCards.forEach((card, index) => {
-                        // افزودن کلاس visible با تأخیر (Delay) بر اساس ترتیب
                         setTimeout(() => {
                             card.classList.add('visible');
-                        }, index * 200); // 200 میلی‌ثانیه تأخیر بین هر کارت
+                        }, index * 250); // تأخیر کمی بیشتر برای جلوه بهتر
                     });
-                    // پس از نمایش، ریمو کردن ایونت لیسنر برای جلوگیری از اجرای مجدد
-                    window.removeEventListener('scroll', checkSectionVisibility);
+                    specialtiesAnimated = true; // علامت‌گذاری که انیمیشن اجرا شده
                 }
             }
             
-            // اجرای اولیه در صورت لزوم
             window.addEventListener('scroll', checkSectionVisibility);
-            checkSectionVisibility(); // اجرای یک بار هنگام بارگذاری
-            
+            checkSectionVisibility(); // اجرای یک بار هنگام بارگذاری برای اگر بخش از ابتدا دیده می‌شود
+
             // =======================================================
-            // ۴. مدیریت فرم تماس (با بهبود وضعیت پیام)
+            // ۵. مدیریت فرم تماس (با بهبود وضعیت پیام)
             // =======================================================
             const form = document.getElementById('contactForm');
             const formStatus = document.getElementById('formStatus');
@@ -470,7 +705,7 @@
                 const formObject = Object.fromEntries(formData); 
 
                 // شبیه‌سازی ارسال (چون Form URL واقعی نیست)
-                // در محیط واقعی، این خطوط را فعال کنید:
+                // در محیط واقعی، خطوط زیر را فعال کنید و شبیه‌سازی را حذف کنید
                 /*
                 fetch(FORM_ACTION_URL, {
                     method: 'POST',
@@ -481,33 +716,37 @@
                     if (response.ok) {
                         return Promise.resolve();
                     } else {
-                        return Promise.reject(new Error('خطای سرور'));
+                        // جزئیات خطا را از پاسخ سرور دریافت کنید اگر موجود است
+                        return response.json().then(err => Promise.reject(new Error(err.message || 'خطای سرور')));
                     }
                 })
                 */
                 
-                // کد شبیه‌سازی پاسخ (برای نمایش عملکرد JS)
+                // کد شبیه‌سازی پاسخ (برای نمایش عملکرد JS بدون نیاز به بک‌اند)
                 new Promise(resolve => setTimeout(() => {
                     const success = Math.random() > 0.1; // 90% احتمال موفقیت
                     if (success) {
                         resolve();
                     } else {
                         // شبیه‌سازی خطا
-                        throw new Error('خطای شبکه/API شبیه‌سازی شده'); 
+                        throw new Error('خطای شبکه یا سرور شبیه‌سازی شده.'); 
                     }
-                }, 1500))
+                }, 1800)) // زمان کمی بیشتر برای حس واقعی‌تر
                 .then(() => {
                     formStatus.textContent = 'پیام شما با موفقیت ارسال شد! ✅';
                     formStatus.className = 'message-status status-success';
                     form.reset();
                 })
                 .catch(error => {
-                    formStatus.textContent = `خطا: پیام ارسال نشد. لطفاً آدرس API (Formspree/Getform) را جایگزین کنید. ❌`;
+                    formStatus.textContent = `❌ خطا: ${error.message || 'پیام ارسال نشد. لطفاً آدرس API (Formspree/Getform) را جایگزین کنید.'}`;
                     formStatus.className = 'message-status status-error';
                 })
                 .finally(() => {
                     submitButton.disabled = false;
-                    setTimeout(() => formStatus.style.display = 'none', 7000); // پیام بعد از ۷ ثانیه پنهان شود
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                        formStatus.className = 'message-status'; // ریست کردن کلاس‌ها
+                    }, 7000); // پیام بعد از ۷ ثانیه پنهان شود
                 });
             });
         });
