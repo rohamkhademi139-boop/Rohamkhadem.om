@@ -3,394 +3,653 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rohamkhademi139 - توسعه‌دهنده پایتون، لینوکس و کاتلین | نمونه کار و رزومه</title>
-    <meta name="description" content="رزومه کامل rohamkhademi139: متخصص کاتلین، پایتون و Bash در محیط لینوکس. فعال در تست نفوذ و توسعه وب. آماده برای پروژه‌های پیشرفته و اتوماسیون.">
-    <meta name="keywords" content="پایتون, لینوکس, کاتلین, Bash, توسعه‌دهنده, برنامه نویسی, تست نفوذ, Django, رزومه, rohamkhademi139">
-    <meta name="author" content="rohamkhademi139-boop">
-
+    <title>فروشگاه تک‌فایل پیشرفته - Roham</title>
+    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
         :root {
-            --primary-color: #3B82F6; /* آبی روشن و حرفه‌ای */
-            --secondary-color: #1F2937; /* خاکستری تیره برای پس زمینه هدر */
-            --accent-color: #FBBF24; /* رنگ تأکیدی (طلایی) */
-            --bg-light: #F9FAFB;
-            --text-dark: #374151;
-            --font-family: 'Tahoma', 'Vazir', sans-serif;
+            --primary-color: #007bff;
+            --secondary-color: #0056b3;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: #fff;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: var(--font-family);
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
-            color: var(--text-dark);
-            margin: 0;
-            padding-top: 70px; /* فضای هدر ثابت */
-            background-color: white;
-            direction: rtl;
-            overflow-x: hidden;
+        }
+
+        /* بخش‌های مخفی (Admin, Cart, Checkout) */
+        .page-content {
+            display: none;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        /* نوار ناوبری (Navbar) */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--card-bg);
+            padding: 15px 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .navbar nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin: 0 15px;
+            font-weight: 400;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        
+        /* دکمه‌ها و فرم‌ها */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .cart-btn {
+            background-color: #f7a01d;
+            color: white;
+            margin-right: 10px;
         }
 
         .container {
             max-width: 1200px;
-            margin: auto;
+            margin: 30px auto;
             padding: 0 20px;
         }
 
-        /* HEADER - استایل مشترک و ثابت */
-        header {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 15px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-right: 25px;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--accent-color);
-        }
-
-        /* SECTION STYLES - بهبود زیبایی */
-        section {
-            padding: 60px 0;
-            border-bottom: 1px solid var(--bg-light);
-        }
-        
-        section:last-child {
-            border-bottom: none;
-        }
-
         h2 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
             text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background: var(--accent-color);
-            margin: 10px auto 0;
-        }
-
-        /* BIO SECTION */
-        .bio-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: flex-start;
-        }
-
-        .bio-section h3 {
+            margin-bottom: 30px;
             color: var(--secondary-color);
-            border-bottom: 1px dashed var(--bg-light);
-            padding-bottom: 10px;
         }
 
-        /* INTERESTS & GOALS */
-        .interest-grid {
+        /* شبکه محصولات */
+        .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 30px;
+            margin-bottom: 50px;
         }
-        
-        .interest-card {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            text-align: center;
             transition: transform 0.3s;
         }
 
-        .interest-card:hover {
-            transform: translateY(-5px);
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
 
-        .interest-card h4 {
-            color: var(--primary-color);
-            margin-top: 0;
+        .product-card .price {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--danger-color);
+            margin: 15px 0;
         }
         
-        .goals-list {
-            list-style-type: none;
-            padding: 0;
+        /* بخش سبد خرید و پرداخت */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
         }
 
-        .goals-list li {
-            background: var(--bg-light);
-            margin-bottom: 10px;
-            padding: 10px 15px;
-            border-right: 4px solid var(--accent-color);
-            border-radius: 4px;
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-left: 15px;
         }
 
-        /* FORM STYLES */
-        #contact-form-section {
-            background-color: var(--bg-light);
+        .item-info {
+            flex-grow: 1;
         }
 
-        #contactForm {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px;
-            background: white;
+        .item-quantity input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+        }
+        
+        .checkout-summary {
+            background-color: #e9ecef;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin-top: 30px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .checkout-summary div {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            font-size: 1.1em;
         }
 
-        .form-control {
+        .checkout-summary .total {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+            border-top: 2px solid #ccc;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+        
+        /* فرم پرداخت */
+        .checkout-form {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .checkout-form input {
             width: 100%;
             padding: 12px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-family: inherit;
+            border-radius: 5px;
         }
 
-        .btn-primary {
+        .checkout-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        /* ادمین پنل */
+        .admin-panel, #login-form {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .admin-panel input, .admin-panel textarea {
             width: 100%;
-            padding: 14px;
-            background-color: var(--primary-color);
-            border: none;
-            border-radius: 6px;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn-primary:hover {
-            background-color: #2563EB;
-        }
-
-        .message-status {
-            text-align: center;
             padding: 10px;
-            margin-top: 15px;
-            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-
-        /* FOOTER */
-        footer {
+        
+        .error-message {
+            color: var(--danger-color);
             text-align: center;
-            padding: 25px;
-            background-color: var(--secondary-color);
-            color: #ccc;
-        }
-
-        /* 🔑 ریسپانسیو (Responsive): زیبایی در موبایل */
-        @media (max-width: 768px) {
-            body {
-                padding-top: 60px;
-            }
-            .bio-section {
-                grid-template-columns: 1fr;
-            }
-            header .container {
-                flex-direction: column;
-                padding: 10px 20px;
-            }
-            nav {
-                margin-top: 10px;
-            }
-            nav a {
-                margin-right: 10px;
-                font-size: 0.9rem;
-            }
+            margin-top: 10px;
+            font-weight: 700;
         }
     </style>
 </head>
 <body>
-    
-    <header>
-        <div class="container">
-            <a href="#hero-resume" class="logo" style="color: white; text-decoration: none; font-size: 1.5rem; font-weight: bold;">rohamkhademi139</a>
-            <nav>
-                <a href="#hero-resume">رزومه و بیوگرافی</a>
-                <a href="#interests">تخصص‌ها و اهداف</a>
-                <a href="#contact-form-section">تماس با من</a>
-            </nav>
+
+    <header class="navbar">
+        <div class="logo" onclick="showPage('home')">فروشگاه Roham</div>
+        <nav>
+            <a onclick="showPage('home')">خانه</a>
+            <a onclick="showPage('cart')">سبد خرید</a>
+            <a onclick="showPage('admin')">پنل ادمین</a>
+        </nav>
+        <div class="user-actions">
+            <button class="cart-btn btn" onclick="showPage('cart')">🛒 سبد خرید (<span id="cart-count">0</span>)</button>
         </div>
     </header>
 
-    <main>
-        <section id="hero-resume" class="container">
-            <hgroup style="text-align: center; margin-bottom: 50px;">
-                <h1>توسعه‌دهنده پیشرفته و متخصص لینوکس</h1>
-                <p style="color: var(--primary-color); font-size: 1.2rem;">پایتون، کاتلین، HTML، Bash و امنیت</p>
-            </hgroup>
-            
-            <div class="bio-section">
-                <article>
-                    <h3>معرفی من (فارسی)</h3>
-                    <p class="persian-bio">
-                        من یک یادگیرنده جستجوگر هستم که با کاوش در فناوری‌های جدید و حل مسائل دنیای واقعی رشد می‌کنم. شخصیت من ترکیبی از تمرکز آرام با فوران‌های انرژی خلاقانه است—به‌ویژه زمانی که در حال ساخت چیزی نوآورانه یا کاوش عمیق در مفاهیم پیچیده‌ام. من توسعه‌دهنده هستم و به کدهای طولانی، سنگین و کارآمد علاقه‌مندم.
-                    </p>
-                    <p>
-                        📚 **پلتفرم‌های یادگیری آنلاین:** یادگیرنده فعال در فرادرس و فرداد، برای به‌روز ماندن در آخرین تکنولوژی‌ها.
-                    </p>
-                </article>
-                
-                <article dir="ltr" style="text-align: left;">
-                    <h3>My Profile (English)</h3>
-                    <p class="english-bio">
-                        An occasionally talkative learner who thrives on exploring new technologies and solving real-world problems. My personality blends quiet focus with bursts of creative energy—especially when I'm building something innovative or diving deep into complex concepts.
-                    </p>
-                    <p>
-                        I'm deeply passionate about **Linux Systems**, **Google Platforms**, and **Microsoft Technologies**.
-                    </p>
-                </article>
-            </div>
+    <main class="container">
+        
+        <section id="home-page" class="page-content active">
+            <h2>محصولات ویژه</h2>
+            <div id="product-list" class="product-grid">
+                </div>
         </section>
 
-        <section id="interests" class="container">
-            <h2>تخصص‌ها و اهداف آینده</h2>
+        <section id="cart-page" class="page-content">
+            <h2>سبد خرید شما</h2>
+            <div id="cart-items-container">
+                </div>
             
-            <div class="interest-grid">
-                
-                <div class="interest-card">
-                    <h4>تخصص‌های فنی</h4>
-                    <ul>
-                        <li><span style="color: var(--primary-color);">Python:</span> کدهای طولانی و سنگین، اتوماسیون و ابزارهای تست نفوذ.</li>
-                        <li><span style="color: var(--primary-color);">Linux & Bash:</span> مدیریت سیستم، اسکریپت‌نویسی پیشرفته و بهینه‌سازی.</li>
-                        <li><span style="color: var(--primary-color);">Kotlin & HTML:</span> توسعه کراس‌پلتفرم و ساختار وب مدرن.</li>
-                    </ul>
-                </div>
-                
-                <div class="interest-card">
-                    <h4>علاقه‌مندی متفرقه (الهام‌بخش)</h4>
-                    <p>طرفدار بایرن مونیخ؛ تیمم را به خاطر نظم و فرهنگ نوآوری دنبال می‌کنم. **جاشوا کیمیش** با هوش و تطبیق‌پذیری‌اش، رویکرد من به حل مسئله را الهام می‌بخشد.</p>
-                </div>
+            <div id="cart-empty-message" style="text-align: center; display: none;">
+                <p>سبد خرید شما خالی است.</p>
+                <button class="btn btn-primary" onclick="showPage('home')">بازگشت به فروشگاه</button>
+            </div>
 
-                <div class="interest-card">
-                    <h4>اهداف بزرگ (Future Goals)</h4>
-                    <ul class="goals-list">
-                        <li>🚀 کسب تخصص عملی در یادگیری ماشین و روباتیک هوشمند.</li>
-                        <li>🚀 مشارکت در جامعه متن‌باز (Open-source).</li>
-                        <li>🚀 پیشرفت در فین‌تک و رمز ارزها.</li>
-                    </ul>
-                </div>
-                
+            <div id="cart-summary" class="checkout-summary" style="display: none;">
+                <div><span>مجموع کالاها:</span> <span id="subtotal">0 تومان</span></div>
+                <div><span>هزینه ارسال:</span> <span id="shipping">0 تومان</span></div>
+                <div class="total"><span>قابل پرداخت:</span> <span id="total-price">0 تومان</span></div>
+                <button class="btn btn-success" style="width: 100%; margin-top: 20px;" onclick="showPage('checkout')">نهایی کردن خرید و پرداخت</button>
             </div>
         </section>
         
-        <section id="contact-form-section">
-            <div class="container">
-                <h2>تماس با من برای پروژه‌ها</h2>
-                
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">نام کامل:</label>
-                        <input type="text" id="name" name="name" class="form-control" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">آدرس ایمیل:</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
-                    </div>
+        <section id="checkout-page" class="page-content">
+            <h2>تکمیل اطلاعات و پرداخت</h2>
+            <div class="checkout-summary">
+                <p>سفارش شما شامل <span id="checkout-count">0</span> کالا به مبلغ <span id="checkout-total">0 تومان</span> است.</p>
+            </div>
 
-                    <div class="form-group">
-                        <label for="subject">موضوع (توسعه وب، لینوکس، یا تست نفوذ):</label>
-                        <input type="text" id="subject" name="subject" class="form-control" required>
-                    </div>
+            <form id="checkout-form" class="checkout-form">
+                <h3>اطلاعات گیرنده</h3>
+                <label for="checkout-name">نام کامل:</label>
+                <input type="text" id="checkout-name" required>
 
-                    <div class="form-group">
-                        <label for="message">متن پیام:</label>
-                        <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
-                    </div>
-                    
-                    <p id="formStatus" class="message-status"></p>
-                    
-                    <button type="submit" id="submitButton" class="btn-primary">ارسال درخواست پروژه</button>
+                <label for="checkout-phone">شماره تماس:</label>
+                <input type="tel" id="checkout-phone" required>
+
+                <label for="checkout-address">آدرس کامل:</label>
+                <input type="text" id="checkout-address" required>
+
+                <button type="submit" class="btn btn-success" style="width: 100%; font-size: 1.2em;">پرداخت و ثبت نهایی (شبیه‌سازی)</button>
+            </form>
+        </section>
+
+        <section id="admin-page" class="page-content admin-panel">
+            <h2>پنل مدیریت</h2>
+
+            <div id="admin-login-section">
+                <form id="login-form">
+                    <input type="password" id="admin-password" placeholder="رمز عبور ادمین (Rohamkhademi1390)" required>
+                    <button type="submit" class="btn btn-primary">ورود</button>
                 </form>
+                <p id="login-message" class="error-message"></p>
+            </div>
+
+            <div id="admin-management-section" style="display: none;">
+                <button class="btn btn-danger" style="float: left;" onclick="handleAdminLogout()">خروج</button>
+                <h3>افزودن محصول جدید</h3>
+                <form id="add-product-form" class="product-form">
+                    <label for="prod-name">نام محصول:</label><input type="text" id="prod-name" required>
+                    <label for="prod-price">قیمت (تومان):</label><input type="number" id="prod-price" required>
+                    <label for="prod-image">لینک تصویر (URL):</label><input type="url" id="prod-image" value="https://via.placeholder.com/300x200?text=محصول+جدید">
+                    <label for="prod-desc">توضیحات:</label><textarea id="prod-desc" rows="3"></textarea>
+                    
+                    <button type="submit" class="btn btn-primary">ثبت محصول</button>
+                    <p id="product-message" class="error-message"></p>
+                </form>
+
+                <hr>
+                <h3>لیست محصولات</h3>
+                <ul id="admin-product-list" style="list-style: none;">
+                    </ul>
             </div>
         </section>
+        
+        <section id="success-page" class="page-content" style="text-align: center; padding-top: 100px;">
+            <h2 style="color: var(--success-color);">✅ پرداخت موفقیت‌آمیز بود!</h2>
+            <p>سفارش شما با موفقیت ثبت شد و به زودی ارسال خواهد شد.</p>
+            <p style="font-weight: 700; margin-top: 20px;">از خرید شما متشکریم.</p>
+            <button class="btn btn-primary" onclick="showPage('home')" style="margin-top: 30px;">بازگشت به صفحه اصلی</button>
+        </section>
+
     </main>
 
-    <footer>
-        <div class="container">
-            <p>طراحی و توسعه توسط rohamkhademi139-boop &copy; ۲۰۲۵. با افتخار Powered by Linux 🐧</p>
-        </div>
+    <footer class="footer" style="text-align: center; padding: 20px; background-color: #333; color: white; margin-top: 50px;">
+        <p>&copy; 2025 فروشگاه Roham - توسعه‌دهنده: شما</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('contactForm');
-            const formStatus = document.getElementById('formStatus');
-            const submitButton = document.getElementById('submitButton');
+        // تعریف متغیرهای ثابت و داده‌ها
+        const ADMIN_PASSWORD = "Rohamkhademi1390";
+        const STORAGE_KEY_PRODUCTS = 'rohamStoreProducts';
+        const STORAGE_KEY_CART = 'rohamStoreCart';
 
-            // ⚠️ این آدرس را با آدرس اختصاصی Formspree یا Getform خود جایگزین کنید.
-            const FORM_ACTION_URL = 'YOUR_EXTERNAL_FORM_API_ENDPOINT_HERE'; 
+        // محصولات اولیه
+        let products = JSON.parse(localStorage.getItem(STORAGE_KEY_PRODUCTS)) || [
+            { id: 1, name: "لپ تاپ قدرتمند", price: 25000000, image: "https://via.placeholder.com/300x200?text=لپ+تاپ", description: "لپ تاپ نسل جدید با 32 گیگ رم." },
+            { id: 2, name: "گوشی هوشمند", price: 12000000, image: "https://via.placeholder.com/300x200?text=موبایل", description: "گوشی پرچمدار با دوربین 108 مگاپیکسلی." },
+            { id: 3, name: "هدفون بی‌سیم", price: 3500000, image: "https://via.placeholder.com/300x200?text=هدفون", description: "هدفون با قابلیت حذف نویز فعال." }
+        ];
 
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
+        // سبد خرید
+        let cart = JSON.parse(localStorage.getItem(STORAGE_KEY_CART)) || [];
+        
+        // =======================================================
+        // توابع اصلی (ناوبری و ذخیره‌سازی)
+        // =======================================================
 
-                formStatus.textContent = 'در حال ارسال...';
-                submitButton.disabled = true;
-                formStatus.style.backgroundColor = 'var(--bg-light)';
-                formStatus.style.color = 'var(--text-dark)';
+        function saveProducts() {
+            localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+        }
 
+        function saveCart() {
+            localStorage.setItem(STORAGE_KEY_CART, JSON.stringify(cart));
+        }
+        
+        function formatPrice(price) {
+            return price.toLocaleString('fa-IR') + ' تومان';
+        }
 
-                const formData = new FormData(form);
-                const formObject = {};
-                formData.forEach((value, key) => {
-                    formObject[key] = value;
-                });
-
-                // ارسال داده‌ها با Fetch API (کد پیشرفته)
-                fetch(FORM_ACTION_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(formObject)
-                })
-                .then(response => {
-                    if (response.ok) {
-                        formStatus.textContent = 'پیام شما با موفقیت ارسال شد! به زودی پاسخ می‌دهیم. ✅';
-                        formStatus.style.backgroundColor = '#D1FAE5'; /* سبز روشن */
-                        formStatus.style.color = '#065F46'; /* سبز تیره */
-                        form.reset();
-                    } else {
-                        // در صورت خطای Formspree/Getform
-                        throw new Error('Server Error');
-                    }
-                })
-                .catch(error => {
-                    formStatus.textContent = `خطا: پیام ارسال نشد. لطفاً ایمیل خود را چک کنید. ❌`;
-                    formStatus.style.backgroundColor = '#FEE2E2'; /* قرمز روشن */
-                    formStatus.style.color = '#991B1B'; /* قرمز تیره */
-                })
-                .finally(() => {
-                    submitButton.disabled = false;
-                });
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
             });
+            document.getElementById(`${pageId}-page`).classList.add('active');
+            
+            // رندر محتوای خاص هر صفحه
+            if (pageId === 'home') {
+                renderProducts();
+            } else if (pageId === 'cart') {
+                renderCart();
+            } else if (pageId === 'checkout') {
+                renderCheckoutSummary();
+            } else if (pageId === 'admin') {
+                checkAdminStatus();
+            }
+        }
+        
+        // =======================================================
+        // منطق صفحه اصلی (Home)
+        // =======================================================
+
+        function renderProducts() {
+            const productListElement = document.getElementById('product-list');
+            productListElement.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">${formatPrice(product.price)}</p>
+                    <p style="padding: 0 15px; margin-bottom: 10px;">${product.description}</p>
+                    <button class="btn btn-primary" onclick="addToCart(${product.id})">افزودن به سبد</button>
+                `;
+                productListElement.appendChild(productCard);
+            });
+        }
+        
+        // =======================================================
+        // منطق سبد خرید (Cart) و Checkout
+        // =======================================================
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+            return totalItems;
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ 
+                    id: product.id, 
+                    name: product.name, 
+                    price: product.price, 
+                    image: product.image,
+                    quantity: 1 
+                });
+            }
+            
+            saveCart();
+            updateCartCount();
+            alert(`محصول "${product.name}" به سبد خرید اضافه شد.`);
+        }
+
+        function calculateCartTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal > 5000000 ? 0 : 50000; // ارسال رایگان برای بالای 5 میلیون
+            const total = subtotal + shipping;
+            return { subtotal, shipping, total };
+        }
+
+        function renderCart() {
+            const cartContainer = document.getElementById('cart-items-container');
+            const totals = calculateCartTotals();
+            const itemCount = updateCartCount();
+            
+            cartContainer.innerHTML = '';
+
+            if (itemCount === 0) {
+                document.getElementById('cart-empty-message').style.display = 'block';
+                document.getElementById('cart-summary').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('cart-empty-message').style.display = 'none';
+            document.getElementById('cart-summary').style.display = 'block';
+
+            cart.forEach(item => {
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-info">
+                        <h4>${item.name}</h4>
+                        <p>${formatPrice(item.price)}</p>
+                    </div>
+                    <div class="item-quantity">
+                        <button class="btn btn-danger" onclick="updateQuantity(${item.id}, -1)">-</button>
+                        <input type="number" value="${item.quantity}" min="1" readonly>
+                        <button class="btn btn-primary" onclick="updateQuantity(${item.id}, 1)">+</button>
+                    </div>
+                    <div style="width: 150px; text-align: left;">
+                        ${formatPrice(item.price * item.quantity)}
+                        <button class="btn btn-danger" style="margin-right: 15px;" onclick="removeFromCart(${item.id})">حذف</button>
+                    </div>
+                `;
+                cartContainer.appendChild(cartItemElement);
+            });
+
+            document.getElementById('subtotal').textContent = formatPrice(totals.subtotal);
+            document.getElementById('shipping').textContent = totals.shipping === 0 ? 'رایگان' : formatPrice(totals.shipping);
+            document.getElementById('total-price').textContent = formatPrice(totals.total);
+        }
+        
+        function updateQuantity(productId, change) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    saveCart();
+                    renderCart();
+                }
+            }
+        }
+        
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            renderCart();
+        }
+        
+        function renderCheckoutSummary() {
+            const totals = calculateCartTotals();
+            document.getElementById('checkout-count').textContent = updateCartCount();
+            document.getElementById('checkout-total').textContent = formatPrice(totals.total);
+            
+            // اگر سبد خالی بود، به خانه برگردان
+            if (updateCartCount() === 0) {
+                showPage('home');
+                alert("سبد خرید شما خالی است و نمی‌توانید پرداخت کنید.");
+            }
+        }
+        
+        // مدیریت نهایی کردن خرید (شبیه‌سازی تراکنش)
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // در اینجا، اطلاعات آدرس و تماس می‌توانند به بک‌اند فرستاده شوند
+            
+            // شبیه‌سازی اتصال به درگاه پرداخت بانکی
+            alert("در حال اتصال به درگاه پرداخت بانک...");
+            
+            // شبیه‌سازی پرداخت موفق
+            setTimeout(() => {
+                // ثبت سفارش و پاک کردن سبد خرید
+                cart = [];
+                saveCart();
+                updateCartCount();
+                
+                showPage('success'); // نمایش صفحه موفقیت
+            }, 2000);
         });
+
+        // =======================================================
+        // منطق پنل ادمین (Admin)
+        // =======================================================
+        
+        function checkAdminStatus() {
+            const loggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            document.getElementById('admin-login-section').style.display = loggedIn ? 'none' : 'block';
+            document.getElementById('admin-management-section').style.display = loggedIn ? 'block' : 'none';
+            if (loggedIn) {
+                renderAdminProducts();
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('admin-password').value;
+            const messageElement = document.getElementById('login-message');
+            
+            if (password === ADMIN_PASSWORD) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                messageElement.textContent = "ورود موفقیت‌آمیز.";
+                messageElement.style.color = 'var(--success-color)';
+                checkAdminStatus();
+            } else {
+                messageElement.textContent = "❌ رمز عبور اشتباه است.";
+                messageElement.style.color = 'var(--danger-color)';
+            }
+            document.getElementById('admin-password').value = '';
+        });
+        
+        function handleAdminLogout() {
+            localStorage.removeItem('adminLoggedIn');
+            checkAdminStatus();
+            alert("شما از پنل ادمین خارج شدید.");
+        }
+
+        document.getElementById('add-product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('prod-name').value;
+            const price = parseInt(document.getElementById('prod-price').value);
+            const image = document.getElementById('prod-image').value;
+            const description = document.getElementById('prod-desc').value;
+            const messageElement = document.getElementById('product-message');
+
+            const newProduct = {
+                id: Date.now(), // شناسه منحصر به فرد
+                name,
+                price,
+                image,
+                description
+            };
+
+            products.push(newProduct);
+            saveProducts();
+            
+            // پاک کردن فرم
+            e.target.reset();
+            messageElement.textContent = `✅ محصول "${name}" با موفقیت اضافه شد.`;
+            messageElement.style.color = 'var(--success-color)';
+            setTimeout(() => messageElement.textContent = '', 3000);
+            
+            renderAdminProducts();
+        });
+
+        function renderAdminProducts() {
+            const adminProductList = document.getElementById('admin-product-list');
+            adminProductList.innerHTML = '';
+            
+            products.forEach((product, index) => {
+                const listItem = document.createElement('li');
+                listItem.style.cssText = 'display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ccc;';
+                listItem.innerHTML = `
+                    <span>${index + 1}. ${product.name} - ${formatPrice(product.price)}</span>
+                    <button class="btn btn-danger" style="padding: 5px 10px;" onclick="deleteProduct(${product.id})">حذف</button>
+                `;
+                adminProductList.appendChild(listItem);
+            });
+        }
+        
+        function deleteProduct(productId) {
+            if (!confirm("آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟")) return;
+            
+            products = products.filter(p => p.id !== productId);
+            saveProducts();
+            renderAdminProducts();
+            alert("محصول حذف شد.");
+        }
+
+        // =======================================================
+        // شروع برنامه
+        // =======================================================
+        window.onload = () => {
+            updateCartCount();
+            renderProducts();
+            // اطمینان از نمایش صفحه خانه در ابتدا
+            document.getElementById('home-page').classList.add('active');
+        };
     </script>
 </body>
 </html>
